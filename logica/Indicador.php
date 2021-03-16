@@ -105,6 +105,12 @@ class Indicador {
     
     function eliminar(){
         $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> indicadorDAO -> eliminarOpciones());
+        $this -> conexion -> cerrar();
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> indicadorDAO -> eliminarPreguntas());
+        $this -> conexion -> cerrar();
+        $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> indicadorDAO -> eliminar());
         $this -> conexion -> cerrar();
     }

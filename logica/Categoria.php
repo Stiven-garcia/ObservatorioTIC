@@ -105,6 +105,12 @@ class Categoria {
     
     function eliminar(){
         $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarOpciones());
+        $this -> conexion -> cerrar();
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarPreguntas());
+        $this -> conexion -> cerrar();
+        $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarIndicadores());
         $this -> conexion -> cerrar();
         $this -> conexion -> abrir();

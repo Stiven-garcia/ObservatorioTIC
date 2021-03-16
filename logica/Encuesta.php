@@ -88,6 +88,9 @@ class Encuesta {
     
     function eliminar(){
         $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> encuestaDAO -> eliminarOpciones());
+        $this -> conexion -> cerrar();
+        $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> encuestaDAO -> eliminarPreguntas());
         $this -> conexion -> cerrar();
         $this -> conexion -> abrir();

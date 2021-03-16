@@ -43,6 +43,14 @@
                 WHERE Encuesta=". $this -> id;
     }
     
+    function eliminarOpciones(){
+        return "DELETE opcion.* FROM opcion
+                INNER JOIN pregunta
+                ON opcion.Pregunta_idPregunta = pregunta.idPregunta
+                WHERE  WHERE pregunta.Encuesta= =". $this -> id;
+    }
+   
+    
     /*function cantidadIndicadores(){
         return "select count(idIndicador)
                 from indicador
