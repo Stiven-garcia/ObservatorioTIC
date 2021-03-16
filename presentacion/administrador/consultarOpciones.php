@@ -1,5 +1,8 @@
 <?php
 $pregunta= new Pregunta($_GET["idPregunta"]);
+$pregunta -> consultar();
+$opcion = new Opcion("","","", $pregunta ->getId());
+$opciones = $opcion -> consultarTodos();
 include 'presentacion/home/menu.php';
 ?>
 
@@ -24,7 +27,7 @@ include 'presentacion/home/menu.php';
 					<div class="field">
 							<label class="label">Pregunta</label>
 							<div class="control">
-								<textarea id="pregunta" name="pregunta" class="textarea" required="required" placeholder="Ingrese la pregunta" disabled><?php echo $pregunta ->getPregunta() ?></textarea>
+								<textarea id="pregunta" name="pregunta" class="textarea" required="required" placeholder="Ingrese la pregunta" disabled rows="2"><?php echo $pregunta ->getPregunta() ?></textarea>
 							</div>
 						</div>
 					<div id="resultadosOpciones">
@@ -40,23 +43,21 @@ include 'presentacion/home/menu.php';
 						<tbody>
 						<?php
 						$i = 1;
-                foreach ($preguntas as $p) {
+                foreach ($opciones as $o) {
                     echo "<tr>";
                     echo "<td>" . $i . "</td>";
-                    echo "<td>" . $p -> limitar_cadena(70) . "</td>";
-                    echo "<td>" . $p -> getIndicador() . "</td>";
-                    echo "<td>" . $p -> cantidadOpciones() . "</td>";
-                    echo "<td>" . "<a id='ver".$p->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
-                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&modificar=true&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
-                                   <a class='fas fa-tasks' href='index.php?pid=" . base64_encode("presentacion/administrador/consultarOpciones.php") . "&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Ver Opciones'> </a>
-                                   <a id='Eliminar".$p->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
+                    echo "<td>" . $o -> limitar_cadena(70) . "</td>";
+                    echo "<td>" . $o -> getValor() . "</td>";
+                    echo "<td>" . "<a id='ver".$o->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
+                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearOpciones.php") . "&modificar=true&idOpcion=" . $o->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
+                                   <a id='Eliminar".$o->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
                           </td>";
                     echo "</tr>";
                     $i++;
                 
                 }
-                echo "<tr><td colspan='9'>" . count($preguntas) . " registros encontrados</td></tr>
-                       <tr><td colspan='5'>  <a href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&crear=true&idPregunta=" . $encuesta -> getId() .  "'  class='fas fa-plus'>Agregar Pregunta</a> </td></tr>"?>
+                echo "<tr><td colspan='9'>" . count($opciones) . " registros encontrados</td></tr>
+                       <tr><td colspan='5'>  <a href='index.php?pid=" . base64_encode("presentacion/administrador/crearOpciones.php") . "&crear=true&idPregunta=" . $pregunta -> getId() .  "'  class='fas fa-plus'>Agregar Opcion</a> </td></tr>"?>
 						</tbody>
 					</table>
 					</div>
@@ -66,14 +67,14 @@ include 'presentacion/home/menu.php';
 	</div>
 </div>
  <div class="column is-2 is-offset-10"> 
-      <a class="button is-light" style="border: 1px solid"  href="<?php echo "index.php?pid=" . base64_encode("presentacion/administrador/modificarEncuesta.php") . "&idRol=" . $encuesta ->  getRol() ?>" > <?php echo utf8_encode("Atras")?></a>
+      <a class="button is-light" style="border: 1px solid"  href="<?php echo "index.php?pid=" . base64_encode("presentacion/administrador/crearEncuesta.php") . "&modificar=true&idEncuesta=" . $pregunta -> getEncuesta() ?>" > <?php echo utf8_encode("Atras")?></a>
  </div>
 
-<div class="modal" id="modalPregunta">
+<div class="modal" id="modalOpcion">
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head" style="background-color:#7317DA">
-      <p class="modal-card-title has-text-white">Detalles De la Pregunta</p>
+      <p class="modal-card-title has-text-white">Detalles De la <?php echo utf8_encode("Opción")?></p>
       <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body" >
@@ -88,37 +89,37 @@ include 'presentacion/home/menu.php';
 <!-- Control Modal -->
 <script type="text/javascript"> 
 $(document).ready(function(){
-	 <?php foreach ($preguntas as $p) { ?>
-		$("#ver<?php echo $p -> getId(); ?>").click(function(e){
+	 <?php foreach ($opciones as $o) { ?>
+		$("#ver<?php echo $o -> getId(); ?>").click(function(e){
 			
-			<?php  echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/pregunta/modalPregunta.php") . "&idPregunta=" . $p -> getId() . "\";\n"; ?>
+			<?php  echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/opcion/modalOpcion.php") . "&idOpcion=" . $o -> getId() . "\";\n"; ?>
 			$("#modalContent").load(ruta);
-			$("#modalPregunta").addClass("is-active");
+			$("#modalOpcion").addClass("is-active");
 			
 		});
 		<?php } ?>
 
 		$(".delete").click(function(e){
 			e.preventDefault();
-			$("#modalPregunta").removeClass("is-active");
+			$("#modalOpcion").removeClass("is-active");
 			
 		});
 		$('body').on('click', '.modal-background', function(){
-			$("#modalPregunta").removeClass("is-active");
+			$("#modalOpcion").removeClass("is-active");
 		  })
 });
 </script>	
 
 <script type="text/javascript">
 $(document).ready(function(){
-	 <?php foreach ($preguntas as $p) { ?>
-		$("#Eliminar<?php echo $p -> getId(); ?>").click(function(e){
+	 <?php foreach ($opciones as $o) { ?>
+		$("#Eliminar<?php echo $o -> getId(); ?>").click(function(e){
 			e.preventDefault();
 			var respuesta = false;
-		  respuesta = confirm("Desea eliminar esta pregunta?")
+		  respuesta = confirm("Desea eliminar esta opción?")
 			if(respuesta){
-				<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/pregunta/preguntaAjax.php") ."&idEncuesta=". $encuesta -> getId()."&idPregunta=". $p -> getId()."\";\n"; ?>
-				$("#resultadosPregunta").load(ruta);
+				<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/opcion/opcionAjax.php") ."&idPregunta=". $pregunta -> getId()."&idOpcion=". $o -> getId()."\";\n"; ?>
+				$("#resultadosOpciones").load(ruta);
 			}
 		
 		});

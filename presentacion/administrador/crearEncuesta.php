@@ -43,6 +43,7 @@ include 'presentacion/home/menu.php';
 							<tr>
 							   <th scope="col">ID</th>
 								<th scope="col">Pregunta</th>
+								<th scope="col">Valor</th>
 								<th scope="col">Indicador</th>
 								<th scope="col">Numero de Opciones</th>
 								<th scope="col">Servicios</th>
@@ -55,6 +56,7 @@ include 'presentacion/home/menu.php';
                     echo "<tr>";
                     echo "<td>" . $i . "</td>";
                     echo "<td>" . $p -> limitar_cadena(70) . "</td>";
+                    echo "<td>" . $p -> getValor() . "</td>";
                     echo "<td>" . $p -> getIndicador() . "</td>";
                     echo "<td>" . $p -> cantidadOpciones() . "</td>";
                     echo "<td>" . "<a id='ver".$p->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>

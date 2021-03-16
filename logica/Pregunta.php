@@ -7,9 +7,18 @@ class Pregunta {
     private $pregunta;
     private $indicador;
     private $encuesta;
+    private $valor;
     private $preguntaDAO;
     private $conexion;
     
+    function getValor(){
+        return $this->valor;
+    }
+
+    function setValor($valor){
+        $this->valor = $valor;
+    }
+
     function getId(){
         return $this -> id;
     }
@@ -27,13 +36,14 @@ class Pregunta {
     }
     
     
-    function Pregunta($id="", $pregunta="", $indicador="", $encuesta=""){
+    function Pregunta($id="", $pregunta="", $indicador="", $encuesta="", $valor=""){
         $this -> id = $id;
         $this -> pregunta = $pregunta;
         $this -> indicador = $indicador;
         $this -> encuesta = $encuesta;
+        $this -> valor = $valor;
         $this -> conexion = new Conexion();
-        $this -> preguntaDAO = new PreguntaDAO($id, $pregunta, $indicador, $encuesta);
+        $this -> preguntaDAO = new PreguntaDAO($id, $pregunta, $indicador, $encuesta, $valor);
     }
     
     function consultar(){
@@ -44,6 +54,7 @@ class Pregunta {
         $this -> pregunta = $resultado[1];
         $this -> indicador = $resultado[2];
         $this -> encuesta = $resultado[3];
+        $this -> valor = $resultado[4];
         $this -> conexion -> cerrar();
     }
     
@@ -53,7 +64,7 @@ class Pregunta {
         $resultados = array();
         $i = 0;
         while (($registro = $this -> conexion -> extraer()) != null) {
-            $resultados[$i] = new Pregunta($registro[0],$registro[1],$registro[2],$registro[3]);
+            $resultados[$i] = new Pregunta($registro[0],$registro[1],$registro[2],$registro[3],$registro[4]);
             $i++;
         }
         $this -> conexion -> cerrar();
@@ -110,6 +121,27 @@ class Pregunta {
         $resultado = $this -> conexion -> extraer();
         $this -> conexion -> cerrar();
         return $resultado[0];
+    }
+    
+    function verificarValor(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> preguntaDAO -> verificarValor());
+        $resultados = array();
+        $resultado = $this -> conexion -> extraer();
+        $resultados[0] = $resultado[0];
+        $resultados[1] = $resultado[1];
+        $this -> conexion -> cerrar();
+        return $resultados;
+    }
+    function verificarValorM(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> preguntaDAO -> verificarValorM());
+        $resultados = array();
+        $resultado = $this -> conexion -> extraer();
+        $resultados[0] = $resultado[0];
+        $resultados[1] = $resultado[1];
+        $this -> conexion -> cerrar();
+        return $resultados;
     }
 }
 ?>

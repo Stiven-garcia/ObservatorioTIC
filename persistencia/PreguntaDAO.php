@@ -5,29 +5,32 @@ class PreguntaDAO {
     private $pregunta;
     private $indicador;
     private $encuesta;
+    private $valor;
     
-    function PreguntaDAO ($id, $pregunta, $indicador, $encuesta){
+    function PreguntaDAO ($id, $pregunta, $indicador, $encuesta, $valor){
         $this -> id = $id;
         $this -> pregunta = $pregunta;
         $this -> indicador = $indicador;
         $this -> encuesta = $encuesta;
+        $this -> valor = $valor;
     }
     
     
     function consultar(){
-        return "select idPregunta, pregunta, Indicador_idIndicador, Encuesta from pregunta
+        return "select idPregunta, pregunta, Indicador_idIndicador, Encuesta, valor
+                from pregunta
                 where idPregunta = '" . $this -> id . "'";
     }
     
     function consultarTodos(){
-        return "select idPregunta, pregunta, indicador.nombre, Encuesta
+        return "select idPregunta, pregunta, indicador.nombre, Encuesta, pregunta.valor
                 from pregunta, indicador
                 where Encuesta = ". $this -> encuesta ." and idIndicador=Indicador_idIndicador ORDER BY idPregunta ASC";
     }
     
     function registrar(){
-        return "INSERT INTO pregunta (pregunta, Indicador_idIndicador, Encuesta)
-                VALUES ('" . $this -> pregunta . "'," . $this -> indicador . ",".$this -> encuesta.")";
+        return "INSERT INTO pregunta (pregunta, Indicador_idIndicador, Encuesta, valor)
+                VALUES ('" . $this -> pregunta . "'," . $this -> indicador . ",".$this -> encuesta.",". $this -> valor.")";
     }
     /*
      function eliminarCategoria(){
@@ -48,7 +51,7 @@ class PreguntaDAO {
      */
     function modificar(){
         return "UPDATE pregunta
-                SET pregunta='". $this -> pregunta . "' 
+                SET pregunta='". $this -> pregunta . "' valor=". $this -> valor." 
                 WHERE idPregunta=". $this -> id;
     }
     
@@ -63,6 +66,21 @@ class PreguntaDAO {
                 from opcion
                 where Pregunta_idPregunta=". $this -> id;
     }
+    
+    function verificarValor(){
+        return "SELECT SUM(pregunta.valor), indicador.valor
+                 FROM indicador, pregunta
+                 WHERE pregunta.Indicador_idIndicador= ". $this -> indicador."
+                 AND indicador.idIndicador = ". $this ->indicador;
+    }
+    function verificarValorM(){
+        return "SELECT SUM(indicador.valor), categoria.valor
+                 FROM categoria,indicador
+                  WHERE pregunta.Indicador_idIndicador= ". $this -> indicador."
+                 AND indicador.idIndicador = ". $this ->indicador ."
+                 AND idPregunta!=". $this -> id;
+    }
+    
 }
 
 ?>

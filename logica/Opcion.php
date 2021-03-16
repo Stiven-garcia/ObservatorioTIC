@@ -1,4 +1,5 @@
 <?php
+require_once ('logica/Opcion.php');
 require 'persistencia/OpcionDAO.php';
 require_once 'persistencia/Conexion.php';
 
@@ -115,5 +116,25 @@ class Opcion {
         return $this -> descripcion;
     }
     
+    function verificarValor(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> opcionDAO -> verificarValor());
+        $resultados = array();
+        $resultado = $this -> conexion -> extraer();
+        $resultados[0] = $resultado[0];
+        $resultados[1] = $resultado[1];
+        $this -> conexion -> cerrar();
+        return $resultados;
+    }
+    function verificarValorM(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> opcionDAO -> verificarValorM());
+        $resultados = array();
+        $resultado = $this -> conexion -> extraer();
+        $resultados[0] = $resultado[0];
+        $resultados[1] = $resultado[1];
+        $this -> conexion -> cerrar();
+        return $resultados;
+    }
 }
 ?>
