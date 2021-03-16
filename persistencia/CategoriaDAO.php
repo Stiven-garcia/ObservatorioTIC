@@ -47,6 +47,22 @@ class CategoriaDAO {
                 WHERE Categoria_idCategoria=". $this -> id;
     }
     
+    function eliminarPreguntas(){
+        return "DELETE pregunta.* FROM pregunta
+                INNER JOIN indicador
+                ON pregunta.Indicador_idIndicador = indicador.idIndicador
+                WHERE indicador.Categoria_idCategoria =". $this -> id;
+    }
+    
+    function eliminarOpciones(){
+        return "DELETE opcion.* FROM opcion
+                INNER JOIN pregunta
+                ON opcion.Pregunta_idPregunta = pregunta.idPregunta
+                INNER JOIN indicador
+                ON pregunta.Indicador_idIndicador = indicador.idIndicador
+                WHERE indicador.Categoria_idCategoria =". $this -> id;
+    }
+    
     function cantidadIndicadores(){
         return "select count(idIndicador)
                 from indicador

@@ -51,6 +51,17 @@ class IndicadorDAO {
                 WHERE idIndicador=". $this -> idIndicador;
     }
     
+    function eliminarPreguntas(){
+        return "DELETE pregunta.* FROM pregunta
+                WHERE pregunta.Indicador_idIndicador =". $this -> id;
+    }
+    
+    function eliminarOpciones(){
+        return "DELETE opcion.* FROM opcion
+                INNER JOIN pregunta
+                ON opcion.Pregunta_idPregunta = pregunta.idPregunta
+                WHERE pregunta.Indicador_idIndicador =". $this -> id;
+    }
     function verificarValor(){
         return "SELECT SUM(indicador.valor), categoria.valor
                  FROM categoria,indicador 
