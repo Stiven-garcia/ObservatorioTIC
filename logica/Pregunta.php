@@ -79,10 +79,10 @@ class Pregunta {
     
     function eliminar(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> preguntaDAO -> eliminarIndicadores());
+        $this -> conexion -> ejecutar($this -> preguntaDAO -> eliminarOpciones());
         $this -> conexion -> cerrar();
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> preguntaDAO -> eliminarCategoria());
+        $this -> conexion -> ejecutar($this -> preguntaDAO -> eliminar());
         $this -> conexion -> cerrar();
     }
     

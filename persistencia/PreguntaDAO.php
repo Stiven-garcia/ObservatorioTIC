@@ -81,6 +81,16 @@ class PreguntaDAO {
                  AND idPregunta!=". $this -> id;
     }
     
+    function eliminar(){
+        return "DELETE FROM pregunta
+                WHERE idPregunta=". $this -> id;
+    }
+    
+    function eliminarOpciones(){
+        return "DELETE opcion.* FROM opcion
+                WHERE opcion.Pregunta_idPregunta =". $this -> id;
+    }
+    
 }
 
 ?>
