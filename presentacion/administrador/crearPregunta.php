@@ -2,7 +2,9 @@
 $errorPregunta = 0;
 $pregunta = "";
 $indicador = "";
+$valor="";
 $tipo=0;
+$error=0;
 $encuesta= null;
 if(isset($_GET["crear"])){
     $encuesta = new Encuesta($_GET["idEncuesta"]);
@@ -18,26 +20,42 @@ if(isset($_GET["crear"])){
         $tipo = 2;
         $pregunta = $preguntaE -> getPregunta();
         $indicador = $preguntaE -> getIndicador();
+        $valor = $preguntaE -> getValor();
     }
 }
 $categoria = new Categoria("", "", "", "", $encuesta -> getRol());
 $categorias = $categoria -> consultarTodos();
 if(isset($_POST["enviar"])){
     $pregunta = $_POST["pregunta"];
+    $valor = $_POST["valor"];
     if($tipo==1){
         $indicador = $_POST["indicador"];
-        $preguntaE = new Pregunta("", $pregunta, $indicador, $encuesta -> getId());
+        $preguntaE = new Pregunta("", $pregunta, $indicador, $encuesta -> getId(), $valor);
         if(!$preguntaE -> existePregunta()){
-            $preguntaE->registrar();
-            $errorPregunta = 1;
+            $resultados = $preguntaE ->verificarValor();
+            $suma = $resultados[0]+$valor;
+            if($suma<=$resultados[1]){
+                $preguntaE -> registrar();
+                $errorPregunta = 1;
+            }else{
+                $error = $resultados[1]-$resultados[0];
+                $errorPregunta = 4 ;
+            }
         }else{
             $errorPregunta = 2;
         }
     }else{
         if($tipo==2){
-            $preguntaE = new Pregunta($id, $pregunta);
-            $preguntaE -> modificar();
-            $errorPregunta = 3;
+            $preguntaE = new Pregunta($id, $pregunta,"", "", $valor);
+            $resultados = $preguntaE ->verificarValorM();
+            $suma = $resultados[0]+$valor;
+            if($suma<=$resultados[1]){
+                $preguntaE -> modificar();
+                $errorPregunta = 3;
+            }else{
+                $error = $resultados[1]-$resultados[0];
+                $errorPregunta = 4 ;
+            }
         }
     }
     
@@ -63,6 +81,11 @@ include 'presentacion/home/menu.php';
                                La pregunta ha sido modificada con exito
                                 </div>');
 						}?>
+						<?php if($errorPregunta==4){
+						    echo utf8_encode('<div class="notification is-danger">
+                               El valor de la pregunta no debe ser mayor a <strong>'. $error .'</strong>
+                                </div>');
+						}?>
 						<div class="field">
 							<label class="label">Pregunta</label>
 							<div class="control has-icons-right">
@@ -71,6 +94,7 @@ include 'presentacion/home/menu.php';
 							</div>
 							<div id="mensajePregunta"> <?php if($errorPregunta==2){ echo "<p class='help is-danger'>La ". utf8_encode("Pregunta") ." ya se encuentra en el sistema</p>"; }?></div>
 						</div>
+						
                     <?php if($tipo ==1){?>
 					<div class="field">
 						<label class="label">Categoria</label>
@@ -88,6 +112,16 @@ include 'presentacion/home/menu.php';
 					
 					<div id="indicador" class="field"></div>
 					<?php }?>
+					
+					<div class="field">
+							<label class="label">Valor</label>
+							<div class="control has-icons-left has-icons-right">
+								<input id="valor" name="valor" class="input" type="number" min="0" required="required" step="any" value="<?php echo $valor; ?>" style="width:180px">
+							    <span class='icon is-small is-right' id="iconoValor"></span>
+							    
+							</div>
+					<div id="mensajeValor"></div>
+					</div>
 					
 					<div class="field is-grouped">
 							<div class="control">
@@ -117,5 +151,22 @@ $(document).ready(function() {
 			
      
 	});
+	$("#valor").blur(function (){
+			if($("#valor").val()==0){
+				$("#valor").removeClass();
+				$("#valor").addClass("input is-danger");
+				$("#iconoValor").empty();
+			    $("#iconoValor").append("<i class='fas fa-exclamation-triangle'></i>");
+			    $("#mensajeValor").empty();
+			    $("#mensajeValor").append("<p class='help is-danger'>El valor no puede ser 0</p>");
+			}else{
+				$("#valor").removeClass();
+                $("#valor").addClass("input is-success");
+                $("#iconoValor").empty();
+                $("#iconoValor").append("<i class='fas fa-check'></i>");
+                $("#mensajeValor").empty();
+			}
+			
+	  });
 });
 </script>

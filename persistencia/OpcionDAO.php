@@ -42,10 +42,23 @@ class OpcionDAO {
     
     function modificar(){
         return "UPDATE opcion
-                SET descripcion='". $this ->descripcion ."', valor=". $this -> valor .", Pregunta_idPregunta=". $this -> pregunta."
+                SET descripcion='". $this ->descripcion ."', valor=". $this -> valor ."
                 WHERE idOpcion=". $this -> id;
     }
     
+    function verificarValor(){
+        return "SELECT SUM(opcion.valor), pregunta.valor
+                 FROM opcion, pregunta
+                 WHERE pregunta.idPregunta= ". $this -> pregunta."
+                 AND opcion.Pregunta_idPregunta = ". $this ->pregunta;
+    }
+    function verificarValorM(){
+        return "SELECT SUM(indicador.valor), categoria.valor
+                 FROM categoria,indicador
+                 WHERE pregunta.idPregunta= ". $this -> pregunta."
+                 AND opcion.Pregunta_idPregunta = ". $this ->pregunta ."
+                 AND idOpcion!=". $this -> id;
+    }
 }
 
 ?>
