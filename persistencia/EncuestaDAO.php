@@ -74,6 +74,23 @@
                 SET estado=0
                 WHERE idEncuesta!=". $this -> id ." and Rol_idRol=".$this -> rol;
     }
+    
+    function cantidadPreguntas() {
+        return "select count(idPregunta)
+                from pregunta
+                where Encuesta=". $this -> id;
+    }
+    
+    function completa() {
+        return "SELECT SUM(pregunta.valor)
+                 FROM  pregunta
+                 WHERE Encuesta= ". $this -> id;
+    }
+    function valorCategorias() {
+        return "SELECT SUM(categoria.valor)
+                 FROM  categoria
+                 WHERE rol_idRol=". $this -> rol ;
+    }
 }
 
 ?>

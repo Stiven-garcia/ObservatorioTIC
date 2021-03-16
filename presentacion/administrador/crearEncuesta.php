@@ -131,7 +131,7 @@ $(document).ready(function(){
 		  respuesta = confirm("Desea eliminar esta pregunta?")
 			if(respuesta){
 				<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/pregunta/preguntaAjax.php") ."&idEncuesta=". $encuesta -> getId()."&idPregunta=". $p -> getId()."\";\n"; ?>
-				$("#resultadosPregunta").load(ruta);
+				$("#resultadosEncuesta").load(ruta);
 			}
 		
 		});

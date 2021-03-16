@@ -22,6 +22,8 @@ $encuestas = $encuesta -> consultarTodos();
 							<tr>
 								<th scope="col">ID</th>
 								<th scope="col"><?php echo utf8_encode("Fecha De Creación")?></th>
+								<th scope="col">Cantidad de Preguntas</th>
+								<th scope="col">Completo</th>
 								<th scope="col">Estado</th>
 								<th scope="col">Servicios</th>
 							</tr>
@@ -33,7 +35,9 @@ $encuestas = $encuesta -> consultarTodos();
 						    echo "<tr>";
                             echo "<td>" . $i . "</td>";
                             echo "<td>" . $e -> getFecha() . "</td>";
-                            echo "<td> <a id='estado" . $e->getId() . "' class='fas ".(($e->getEstado()==0)? "fa-times-circle":"fa-check-circle")."' href='#' data-toggle='tooltip' data-placement='left' title='" . ($e->getEstado()==0?"Inhabilitado":"Habilitado") . "'> </a></td>";
+                            echo "<td>" . $e -> cantidadPreguntas() . "</td>";
+                            echo "<td> <progress class='progress' value='". ($e -> completa()*100)/$e ->valorCategorias()  ."' max='100' data-toggle='tooltip' data-placement='left' title='".($e -> completa()*100)/$e ->valorCategorias() ."%'></progress></td>";
+                            echo "<td> <i id='estado" . $e->getId() . "' class='fas ".(($e->getEstado()==0)? "fa-times-circle":"fa-check-circle")."' href='#' data-toggle='tooltip' data-placement='left' title='" . ($e->getEstado()==0?"Inhabilitado":"Habilitado") . "'> </i></td>";
                             echo "<td>" . "
                                    <a id='ver".$e->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
                                    <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearEncuesta.php") . "&modificar=true&idEncesta=" . $e->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
@@ -43,8 +47,8 @@ $encuestas = $encuesta -> consultarTodos();
                            echo "</tr>";     
                            $i++;
                         }
-                           echo "<tr><td colspan='5'>" . count($encuestas) . " registros encontrados</td></tr>";
-                           echo "<tr><td colspan='5'>  <a class='fas fa-plus' href='index.php?pid=" . base64_encode("presentacion/administrador/crearEncuesta.php") . "&crear=true&idRol=" . $encuesta -> getRol() . "'>Agregar Encuesta</a> </td></tr>"?>
+                           echo "<tr><td colspan='6'>" . count($encuestas) . " registros encontrados</td></tr>";
+                           echo "<tr><td colspan='6'>  <a class='fas fa-plus' href='index.php?pid=" . base64_encode("presentacion/administrador/crearEncuesta.php") . "&crear=true&idRol=" . $encuesta -> getRol() . "'>Agregar Encuesta</a> </td></tr>"?>
                 
 						</tbody>
 					</table>
@@ -107,8 +111,18 @@ $(document).ready(function(){
 		// Cambiar estado
 		$("#cambiarEstado<?php echo $e -> getId(); ?>").click(function(e){
 			e.preventDefault();
-		   <?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/encuesta/encuestaAjax.php") ."&idRol=".$encuesta -> getRol()."&cambiarEstado=true&idEncuesta=". $e -> getId()."&estado=". (($e -> getEstado()==0)? "1":"0")."\";\n"; ?>
+			<?php if(($e -> completa()*100)/$e ->valorCategorias()!=100){ ?>
+			<?php if($e -> getEstado()==1){ ?>
+			<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/encuesta/encuestaAjax.php") ."&idRol=".$encuesta -> getRol()."&cambiarEstado=true&idEncuesta=". $e -> getId()."&estado=". (($e -> getEstado()==0)? "1":"0")."\";\n"; ?>
 			$("#resultadosEncuesta").load(ruta);
+			<?php }else{?>
+			alert("Complete la encuesta para poderla activar");
+			<?php } ?>
+				<?php }else{?>
+				<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/encuesta/encuestaAjax.php") ."&idRol=".$encuesta -> getRol()."&cambiarEstado=true&idEncuesta=". $e -> getId()."&estado=". (($e -> getEstado()==0)? "1":"0")."\";\n"; ?>
+				$("#resultadosEncuesta").load(ruta);
+				
+		   <?php } ?>
 		
 		});
 		<?php } ?>
