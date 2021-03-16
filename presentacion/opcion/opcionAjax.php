@@ -83,7 +83,7 @@ $(document).ready(function(){
 		$("#Eliminar<?php echo $o -> getId(); ?>").click(function(e){
 			e.preventDefault();
 			var respuesta = false;
-		  respuesta = confirm("Desea eliminar esta opción?")
+		  respuesta = confirm("Desea eliminar esta opcion?")
 			if(respuesta){
 				<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/opcion/opcionAjax.php") ."&idPregunta=". $pregunta -> getId()."&idOpcion=". $o -> getId()."\";\n"; ?>
 				$("#resultadosOpciones").load(ruta);
