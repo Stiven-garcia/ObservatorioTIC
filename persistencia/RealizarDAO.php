@@ -13,20 +13,13 @@ class RealizarDAO {
         $this -> pregunta = $pregunta;
     }
     
-    function consultar(){
-        return "select fecha, Usuario_idUsuario, respuesta, Pregunta_idPregunta 
-                from realizar
-                where Usuario_idUsuario = " . $this -> usuario . "
-                and Pregunta_idPregunta = " . $this -> pregunta;
-    }
-    
-    function consultarTodos($idEncuesta){
+    function consultar($idEncuesta){
         return "select fecha, Usuario_idUsuario, respuesta, Pregunta_idPregunta 
                 from realizar, pregunta
-                where pregunta.idPregunta =  realizar.Pregunta_idPregunta 
-                and pregunta.Encuesta =". $idEncuesta;
+                where realizar.Usuario_idUsuario = " . $this -> usuario . "
+                and realizar.Pregunta_idPregunta = pregunta.idPregunta
+                and pregunta.Encuesta = " . $idEncuesta;
     }
-    
    
 }
 
