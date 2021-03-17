@@ -60,20 +60,9 @@ class Realizar {
         $this -> realizarDAO = new RealizarDAO($fecha, $usuario, $respuesta, $pregunta);
     }
     
-    function consultar(){
+    function consultar($idEncuesta){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> realizarDAO -> consultar());
-        $resultado = $this -> conexion -> extraer();
-        $this -> fecha = $resultado[0];
-        $this -> usuario = $resultado[1];
-        $this -> respuesta = $resultado[2];
-        $this -> pregunta = $resultado[3];
-        $this -> conexion -> cerrar();
-    }
-    
-    function consultarTodos($idEncuesta){
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> realizarDAO -> consultarTodos($idEncuesta));
+        $this -> conexion -> ejecutar($this -> realizarDAO -> consultar($idEncuesta));
         $resultados = array();
         $i = 0;
         while (($registro = $this -> conexion -> extraer()) != null) {
