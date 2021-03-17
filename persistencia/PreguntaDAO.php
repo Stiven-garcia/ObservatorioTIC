@@ -91,6 +91,12 @@ class PreguntaDAO {
                 WHERE opcion.Pregunta_idPregunta =". $this -> id;
     }
     
+    function completa() {
+        return "SELECT SUM(opcion.valor)
+                 FROM  opcion
+                 WHERE Pregunta_idPregunta = ". $this -> id;
+    }
+    
 }
 
 ?>

@@ -66,6 +66,7 @@ class Usuario extends Persona {
         if($this -> conexion -> numFilas() == 1){
             $resultado = $this -> conexion -> extraer();
             $this -> id = $resultado[0];
+            $this -> estado = $resultado[1];
             $this -> conexion -> cerrar();
             return true;
         } else {
@@ -99,5 +100,21 @@ class Usuario extends Persona {
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> usuarioDAO -> actualizarEstado());
         $this -> conexion -> cerrar();
+    }
+    
+    function realizar($encuesta){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> realizar($encuesta));
+        $pRealiadas = $this -> conexion -> numFilas();
+        $this -> conexion -> cerrar();
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> cantidadPreguntas($encuesta));
+        $cantPreguntas = $this -> conexion -> numFilas();
+        $this -> conexion -> cerrar();
+        if($pRealiadas == $cantPreguntas){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

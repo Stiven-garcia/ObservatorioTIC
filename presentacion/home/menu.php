@@ -36,10 +36,10 @@ if($_SESSION['id'] != ""){
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/categoria/estudiantesCategoria.php")?>">
+          <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/categoria/estudiantesCategoria.php")?>&nos=true">
             Estudiantes
           </a>
-          <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/categoria/profesoresCategoria.php")?>">
+          <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/categoria/profesoresCategoria.php")?>&nos=true">
             Profesores
           </a>
           <?php if($administrador!= null){?>
@@ -63,8 +63,8 @@ if($_SESSION['id'] != ""){
         </div>
       </div>
        <?php }else{ ?>
-      <a class="navbar-item">
-        Encuestas
+      <a class="navbar-item" href="index.php?pid=<?php echo (($usuario != "")? base64_encode("presentacion/encuesta/verEncuesta.php") : base64_encode("presentacion/home/iniciarSesion.php"). "&nos=true&error=3") ?>">
+        Encuesta
       </a>
       <?php } ?>
         
@@ -135,7 +135,7 @@ if($_SESSION['id'] != ""){
     <div class="navbar-end">
       <div class="navbar-item">
       <?php if($_SESSION['id'] != ""){ ?>
-       <?php echo ($administrador!=null)? $administrador -> getNombre() ." ". $administrador -> getApellido():  $usuario -> getNombre() ." ". $usuario -> getApellido(); ?>
+       <?php echo ($administrador!=null)? $administrador -> getNombre() ." ". $administrador -> getApellido() :  $usuario -> getNombre() ." ". $usuario -> getApellido(); ?>
           <div class="navbar-item has-dropdown is-hoverable has-text-centered" style="margin-right:10px">
           
         <a class="navbar-link" style="height:50px; width:50px; margin-left:3px">

@@ -113,6 +113,41 @@ class Encuesta {
         $this -> conexion -> cerrar();
     }
   
+    function cantidadPreguntas(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> encuestaDAO -> cantidadPreguntas());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
+    }
     
+    function completa() {
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> encuestaDAO -> completa());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
+    }
+    function valorCategorias() {
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> encuestaDAO -> valorCategorias());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
+    }
+    
+    function verificarEncuesta(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> encuestaDAO -> verificarEncuesta());
+        if($this -> conexion -> numFilas() == 0){
+            $this -> conexion -> cerrar();
+            return false;
+        } else {
+            $resultado = $this -> conexion -> extraer();
+            $this -> id = $resultado[0];
+            $this -> conexion -> cerrar();
+            return true;
+        }
+    }
 }
 ?>

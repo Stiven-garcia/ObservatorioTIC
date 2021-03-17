@@ -54,7 +54,7 @@
   </ol>
     </div>
   <p>
-  <?php echo utf8_encode("Al finalizar estas tres fases se obtuvieron los siguientes modelos para ")?> <a href="index.php">profesores</a> y <a  href="index.php">estudiantes</a> :
+  <?php echo utf8_encode("Al finalizar estas tres fases se obtuvieron los siguientes modelos para ")?> <a href="index.php?pid=<?php echo base64_encode("presentacion/categoria/profesoresCategoria.php")?>&nos=true">profesores</a> y <a  href="index.php?pid=<?php echo base64_encode("presentacion/categoria/estudiantesCategoria.php")?>&nos=true">estudiantes</a> :
   </p>
   </div>
  <p style="text-align:center">

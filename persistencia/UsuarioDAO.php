@@ -21,15 +21,15 @@ class UsuarioDAO {
     }
     
     function autenticar(){
-        return "SELECT idUsuario 
+        return "SELECT idUsuario, estado
                 FROM usuario
                 WHERE correo = '" . $this -> correo . "' and clave = md5('" . $this -> clave . "')";
     }
     
     function consultar(){
-        return "select idUsuario, nombre, apellido, correo, Rol, estado
-                from usuario, rol
-                where idUsuario = '" . $this -> id . "' and Rol_idRol='".$this -> rol ."'";
+        return "select idUsuario, nombre, apellido, correo, Rol_idRol, estado
+                from usuario
+                where idUsuario = '" . $this -> id . "'";
     }
     
     function existeCorreo(){
@@ -53,6 +53,18 @@ class UsuarioDAO {
         return "UPDATE usuario
                 SET estado=1
                 WHERE  correo = '" . $this -> correo . "'";
+    }
+    
+    function realizar($encuesta){
+        return "SELECT respuesta
+                FROM realizar, pregunta
+                WHERE  Usuario_idUsuario = " . $this -> id . " and Pregunta_idPregunta = idPregunta and Encuesta=". $encuesta;
+    }
+    
+    function cantidadPreguntas($encuesta){
+        return "SELECT idPregunta
+                FROM pregunta
+                WHERE Encuesta=". $encuesta;
     }
 }
 ?>

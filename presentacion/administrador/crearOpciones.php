@@ -58,7 +58,7 @@ if(isset($_POST["enviar"])){
 }
 include 'presentacion/home/menu.php';
 ?>
-<div class="columns is-mobile is-centered" style="margin-top: 10px">
+<div class="columns is-centered" style="margin-top: 10px">
   <div class="column is-half">
 		<div class="card">
 			<header class="card-header" style="background-color:#7317DA">
