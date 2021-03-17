@@ -72,5 +72,18 @@ class Realizar {
         $this -> conexion -> cerrar();
         return $resultados;
     }
+    
+    function verificar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> realizarDAO -> verificar());
+        if($this -> conexion -> numFilas() == 1){
+            $this -> conexion -> cerrar();
+            return true;
+        } else {
+            $this -> conexion -> cerrar();
+            return false;
+        }
+    }
+    
 }
 ?>

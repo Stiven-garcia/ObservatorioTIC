@@ -20,7 +20,13 @@ class RealizarDAO {
                 and realizar.Pregunta_idPregunta = pregunta.idPregunta
                 and pregunta.Encuesta = " . $idEncuesta;
     }
-   
+    
+    function verificar(){
+        return "Select respuesta
+                FROM realizar
+                WHERE Usuario_idUsuario = ". $this -> usuario . "
+                and Pregunta_idPregunta = " . $this -> pregunta;
+    }
 }
 
 ?>
