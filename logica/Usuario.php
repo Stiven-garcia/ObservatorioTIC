@@ -8,7 +8,16 @@ class Usuario extends Persona {
     private $rol;
     private $hash;
     private $estado;
+    private $terminar;
     
+    function getTerminar(){
+        return $this->terminar;
+    }
+
+    function setTerminar($terminar){
+        $this->terminar = $terminar;
+    }
+
     function getEstado(){
         return $this->estado;
     }
@@ -33,13 +42,14 @@ class Usuario extends Persona {
         $this->rol = $rol;
     }
 
-    function Usuario($id="", $nombre="", $apellido="", $correo="", $clave="",$rol="", $hash="", $estado=""){
+    function Usuario($id="", $nombre="", $apellido="", $correo="", $clave="",$rol="", $hash="", $estado="", $terminar=""){
         $this -> Persona($id, $nombre, $apellido, $correo, $clave);
         $this -> rol = $rol;
         $this -> hash = $hash;
         $this -> estado = $estado;
+        $this -> terminar = $terminar;
         $this -> conexion = new Conexion();
-        $this -> usuarioDAO = new UsuarioDAO($id, $nombre, $apellido, $correo, $clave, $rol, $hash, $estado);
+        $this -> usuarioDAO = new UsuarioDAO($id, $nombre, $apellido, $correo, $clave, $rol, $hash, $estado, $terminar);
     }
     
     function existeCorreo(){
@@ -116,5 +126,11 @@ class Usuario extends Persona {
         } else {
             return false;
         }
+    }
+    
+    function actualizarTerminar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> usuarioDAO -> actualizarTerminar());
+        $this -> conexion -> cerrar();
     }
 }
