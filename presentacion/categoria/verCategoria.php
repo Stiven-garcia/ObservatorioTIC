@@ -5,7 +5,7 @@ $indicador = new Indicador("","","","", $categoria -> getId());
 $indicadores = $indicador -> consultarTodos();
 include 'presentacion/home/menu.php';
 ?>
-<div class="columns is-mobile">
+<div class="columns">
   <div class="column is-half is-offset-one-quarter">
   <h1 class="title" style="text-align:center; margin-top: 20px"><?php echo $categoria ->getNombre()?></h1>
   <hr style="height: 3px; background-color: #7317DA; margin-left: 25%; margin-right: 25%"></hr>

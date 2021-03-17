@@ -36,11 +36,11 @@ $encuestas = $encuesta -> consultarTodos();
                             echo "<td>" . $i . "</td>";
                             echo "<td>" . $e -> getFecha() . "</td>";
                             echo "<td>" . $e -> cantidadPreguntas() . "</td>";
-                            echo "<td> <progress class='progress' value='". ($e -> completa()*100)/$e ->valorCategorias()  ."' max='100' data-toggle='tooltip' data-placement='left' title='".($e -> completa()*100)/$e ->valorCategorias() ."%'></progress></td>";
+                            echo "<td> <progress class='progress' value='". ($e -> completa()*100)/$e ->valorCategorias()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round (($e -> completa()*100)/$e ->valorCategorias(),2) ."%'></progress></td>";
                             echo "<td> <i id='estado" . $e->getId() . "' class='fas ".(($e->getEstado()==0)? "fa-times-circle":"fa-check-circle")."' href='#' data-toggle='tooltip' data-placement='left' title='" . ($e->getEstado()==0?"Inhabilitado":"Habilitado") . "'> </i></td>";
                             echo "<td>" . "
                                    <a id='ver".$e->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
-                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearEncuesta.php") . "&modificar=true&idEncesta=" . $e->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
+                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearEncuesta.php") . "&modificar=true&idEncuesta=" . $e->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
                                    <a id='cambiarEstado".$e->getId()."' href='#' class='fas fa-power-off' data-toggle='tooltip' data-placement='left' title='" . ($e->getEstado()==0?"Habilitar":"Inhabilitar") . "'> </a>
                                    <a id='Eliminar".$e->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
                                  </td>";
@@ -98,12 +98,12 @@ $(document).ready(function(){
 <script type="text/javascript">
 $(document).ready(function(){
 	 <?php foreach ($encuestas as $e) { ?>
-		$("#Eliminar<?php echo $e -> getId(); ?>").click(function(e){
+	 $("#Eliminar<?php echo $e -> getId(); ?>").click(function(e){
 			e.preventDefault();
 			var respuesta = false;
 		  respuesta = confirm("Desea eliminar la Encuesta con todas sus preguntas?")
 			if(respuesta){
-				<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/encuesta/encuestaAjax.php") ."&idRol=".$encuesta -> getRol()."&idEncuesta=". $e -> getId()."\";\n"; ?>
+				<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/encuesta/encuestaAjax.php") ."&idRol=".$encuesta -> getRol()."&eliminar=true&idEncuesta=". $e -> getId()."\";\n"; ?>
 				$("#resultadosEncuesta").load(ruta);
 			}
 		

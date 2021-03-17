@@ -10,11 +10,16 @@ if ($administrador -> autenticar()) {
     header("Location: index.php?pid=" . base64_encode("presentacion/home/inicio.php"));
 }else{
     if($usuario -> autenticar()){
-        $_SESSION['id'] = $usuario -> getId();
-        $_SESSION['tipo'] = 2;
-        header("Location: index.php?pid=" . base64_encode("presentacion/home/inicio.php"));
+        if($usuario -> getEstado()==1){
+            $_SESSION['id'] = $usuario -> getId();
+            $_SESSION['tipo'] = 2;
+            header("Location: index.php?pid=" . base64_encode("presentacion/home/inicio.php"));
+        }else{
+            header("Location: index.php?pid=" . base64_encode("presentacion/home/iniciarSesion.php") . "&error=4&nos=true");
+        }
+        
     } else{
-        header("Location: index.php?pid=" . base64_encode("presentacion/home/iniciarSesion.php") . "&error=2 &nos=true");
+        header("Location: index.php?pid=" . base64_encode("presentacion/home/iniciarSesion.php") . "&error=2&nos=true");
           }
 }
 ?>

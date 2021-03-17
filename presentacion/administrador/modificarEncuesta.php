@@ -64,7 +64,7 @@ include 'presentacion/home/menu.php';
                             echo "<td>" . $i . "</td>";
                             echo "<td>" . $e -> getFecha() . "</td>";
                             echo "<td>" . $e -> cantidadPreguntas() . "</td>";
-                            echo "<td> <progress class='progress' value='". ($e -> completa()*100)/$e ->valorCategorias()  ."' max='100' data-toggle='tooltip' data-placement='left' title='".($e -> completa()*100)/$e ->valorCategorias() ."%'></progress></td>";
+                            echo "<td> <progress class='progress' value='". ($e -> completa()*100)/$e ->valorCategorias()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round(($e -> completa()*100)/$e ->valorCategorias(),2) ."%'></progress></td>";
                             echo "<td> <i id='Estado" . $e->getId() . "' class='fas ".(($e->getEstado()==0)? "fa-times-circle":"fa-check-circle")."' data-toggle='tooltip' data-placement='left' title='" . ($e->getEstado()==0?"Inhabilitado":"Habilitado") . "'></i></td>";
                             echo "<td>" . "
                                    <a id='ver".$e->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>

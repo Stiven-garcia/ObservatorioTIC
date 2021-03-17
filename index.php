@@ -10,7 +10,7 @@ require 'logica/Pregunta.php';
 require 'logica/Opcion.php';
 ?>
 
-<html lang="es">
+<html lang="es" style="height: 100%;">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
@@ -28,13 +28,17 @@ require 'logica/Opcion.php';
     transform : translateY(-15px);
     box-shadow: 0 12px 16px rgba(0,0,0, 0.2)
     }
+    * {
+  margin: 0;
+}
     </style>
 
 
 </head>
 
-<body>
-    <?php
+<body style="height: 100%;">
+  <div style="min-height: calc(100% - 5rem);" >
+  <?php
     if (isset($_GET["pid"])) {
         $pid = base64_decode($_GET["pid"]);
         if (isset($_GET["nos"]) || (!isset($_GET["nos"]) && $_SESSION['id'] != "")) {
@@ -48,8 +52,8 @@ require 'logica/Opcion.php';
         include 'presentacion/home/inicio.php';
     }
     ?>
-</body>
-<footer class="footer"  style="background-color:#0A0A0A; width: 100%; height:25%;  bottom: 0; margin-top:30px">
+  </div>
+    <footer class="footer"  style="background-color:#0A0A0A; width: 100%; height:5rem;  bottom: 0; margin-top:30px">
   <div class="content has-text-centered has-text-white" style="margin-top:-15px">
     <p>
      Diego Fernando Machado Barrera | 
@@ -63,4 +67,6 @@ require 'logica/Opcion.php';
    <p> <?php echo utf8_encode("Copyright © Todos los derechos reservados")?></p>
   </div>
 </footer>
+</body>
+
 </html>

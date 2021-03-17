@@ -46,6 +46,7 @@ include 'presentacion/home/menu.php';
 								<th scope="col">Valor</th>
 								<th scope="col">Indicador</th>
 								<th scope="col">Numero de Opciones</th>
+								<th scope="col">Completo</th>
 								<th scope="col">Servicios</th>
 							</tr>
 						</thead>
@@ -59,6 +60,7 @@ include 'presentacion/home/menu.php';
                     echo "<td>" . $p -> getValor() . "</td>";
                     echo "<td>" . $p -> getIndicador() . "</td>";
                     echo "<td>" . $p -> cantidadOpciones() . "</td>";
+                    echo "<td> <progress class='progress' value='". ($p -> completa()*100)/$p -> getValor()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round(($p -> completa()*100)/$p -> getValor(),2) ."%'></progress></td>";
                     echo "<td>" . "<a id='ver".$p->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
                                    <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&modificar=true&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
                                    <a class='fas fa-tasks' href='index.php?pid=" . base64_encode("presentacion/administrador/consultarOpciones.php") . "&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Ver Opciones'> </a>

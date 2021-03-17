@@ -47,7 +47,7 @@
         return "DELETE opcion.* FROM opcion
                 INNER JOIN pregunta
                 ON opcion.Pregunta_idPregunta = pregunta.idPregunta
-                WHERE  WHERE pregunta.Encuesta= =". $this -> id;
+                WHERE  WHERE pregunta.Encuesta=". $this -> id;
     }
    
     
@@ -82,14 +82,20 @@
     }
     
     function completa() {
-        return "SELECT SUM(pregunta.valor)
-                 FROM  pregunta
-                 WHERE Encuesta= ". $this -> id;
+        return "SELECT SUM(opcion.valor)
+                 FROM  pregunta, opcion
+                 WHERE Encuesta= ". $this -> id . " and idPregunta = Pregunta_idPregunta";
     }
     function valorCategorias() {
         return "SELECT SUM(categoria.valor)
                  FROM  categoria
                  WHERE rol_idRol=". $this -> rol ;
+    }
+    
+    function verificarEncuesta(){
+        return "select idEncuesta
+                from encuesta
+                where Rol_idRol=". $this -> rol . " and estado=1";
     }
 }
 

@@ -143,5 +143,13 @@ class Pregunta {
         $this -> conexion -> cerrar();
         return $resultados;
     }
+    
+    function completa() {
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> preguntaDAO -> completa());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
+    }
 }
 ?>

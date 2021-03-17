@@ -15,7 +15,7 @@ if(isset($_GET["error"])){
     $error=$_GET["error"];
 }
 ?>
-<div class="columns is-mobile is-centered" style="margin-top: 20px; margin-bottom: 20px">
+<div class="columns is-centered" style="margin-top: 20px; margin-bottom: 20px">
 	<div class="column is-half  is-one-third">
 		<div class="card">
 		<header class="card-header" style="background-color:#7317DA">
@@ -33,6 +33,19 @@ if(isset($_GET["error"])){
 				            Correo o clave incorrectas <br/>
                             Intente nuevamente
                                  </div>');
+				        }else{
+				            if($error==3){
+				                echo utf8_encode('<div class="notification is-danger">
+				            Para ingresar a la encuesta debe iniciar sesión
+                                 </div>');
+				            }else{
+				                if($error==4){
+				                    echo utf8_encode('<div class="notification is-danger">
+				            Active su cuenta con el enlace enviado a su correo institucional
+                            para poder iniciar sesión
+                                 </div>');
+				                }
+				            }
 				        }
 				    }?>
 					<form action=<?php echo "index.php?pid=" . base64_encode("presentacion/home/autenticar.php")."&nos=true" ?> method="post">
