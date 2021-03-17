@@ -8,8 +8,9 @@ class UsuarioDAO {
     private $rol;
     private $hash;
     private $estado;
+    private $terminar;
     
-    function UsuarioDAO($id, $nombre, $apellido, $correo, $clave, $rol, $hash, $estado){
+    function UsuarioDAO($id, $nombre, $apellido, $correo, $clave, $rol, $hash, $estado, $terminar){
         $this -> id = $id;
         $this -> nombre = $nombre;
         $this -> apellido = $apellido;
@@ -18,6 +19,7 @@ class UsuarioDAO {
         $this -> rol = $rol;
         $this -> hash = $hash;
         $this -> estado = $estado;
+        $this -> terminar = $terminar;
     }
     
     function autenticar(){
@@ -66,5 +68,12 @@ class UsuarioDAO {
                 FROM pregunta
                 WHERE Encuesta=". $encuesta;
     }
+    
+    function actualizarTerminar(){
+        return "UPDATE usuario
+                SET terminar=". $this -> terminar." 
+                WHERE  idUsuario = '" . $this -> id . "'";
+    }
+    
 }
 ?>

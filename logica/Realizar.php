@@ -85,5 +85,11 @@ class Realizar {
         }
     }
     
+    function registrar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> realizarDAO -> registrar());
+        $this -> conexion -> cerrar();
+    }
+    
 }
 ?>

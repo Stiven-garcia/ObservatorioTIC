@@ -27,6 +27,11 @@ class RealizarDAO {
                 WHERE Usuario_idUsuario = ". $this -> usuario . "
                 and Pregunta_idPregunta = " . $this -> pregunta;
     }
+    
+    function registrar(){
+        return "INSERT INTO realizar (fecha, Usuario_idUsuario, respuesta, Pregunta_idPregunta)
+                VALUES ('" . $this -> fecha . "', " . $this -> usuario . ", " . $this -> respuesta . ", " . $this -> pregunta . ")";
+    }
 }
 
 ?>
