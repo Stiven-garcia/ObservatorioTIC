@@ -17,15 +17,15 @@ class PreguntaDAO {
     
     
     function consultar(){
-        return "select idPregunta, pregunta, Indicador_idIndicador, Encuesta, valor
+        return "select idPregunta, pregunta, variable, Encuesta, valor
                 from pregunta
                 where idPregunta = '" . $this -> id . "'";
     }
     
     function consultarTodos(){
-        return "select idPregunta, pregunta, indicador.nombre, Encuesta, pregunta.valor
-                from pregunta, indicador
-                where Encuesta = ". $this -> encuesta ." and idIndicador=Indicador_idIndicador ORDER BY idPregunta ASC";
+        return "select idPregunta, pregunta, variable.nombre, Encuesta, pregunta.valor
+                from pregunta, variable
+                where Encuesta = ". $this -> encuesta ." and idVariable = variable ORDER BY idPregunta ASC";
     }
     
     function registrar(){

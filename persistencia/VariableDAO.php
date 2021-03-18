@@ -66,12 +66,19 @@ class VariableDAO {
                  AND indicador.idIndicador = ". $this ->indicador;
     }
     
+    function verificarIndicador(){
+        return "SELECT indicador.valor
+                 FROM indicador, variable
+                 WHERE variable.indicador = ". $this ->indicador."
+                 AND indicador.idIndicador = ". $this ->indicador;
+    }
+    
     function verificarValorM(){
         return "SELECT SUM(variable.valor), indicador.valor
                  FROM indicador, variable
                  WHERE variable.indicador = ". $this ->indicador."
                  AND indicador.idIndicador = ". $this ->indicador ."
-                 AND idVariable !=". $this -> id;
+                 AND variable.idVariable !=". $this -> id;
     }
     
 }

@@ -43,6 +43,7 @@ include 'presentacion/home/menu.php';
                     echo "<td>" . $in -> getValor() . "</td>";
                     echo "<td>" . "<a id='ver".$in->getIdIndicador()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
                                    <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearIndicador.php") . "&modificar=true&idIndicador=" . $in -> getIdIndicador() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
+                                   <a class='fas fa-tasks' href='index.php?pid=" . base64_encode("presentacion/administrador/consultarVariables.php") . "&idIndicador=" . $in->getIdIndicador() . "' data-toggle='tooltip' data-placement='left' title='Ver Variables'> </a>
                                    <a id='Eliminar".$in->getIdIndicador()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
                           </td>";
                     echo "</tr>";
