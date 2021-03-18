@@ -111,6 +111,9 @@ class Categoria {
         $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarPreguntas());
         $this -> conexion -> cerrar();
         $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarVariables());
+        $this -> conexion -> cerrar();
+        $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarIndicadores());
         $this -> conexion -> cerrar();
         $this -> conexion -> abrir();
@@ -141,6 +144,14 @@ class Categoria {
         
         // Si no, entonces devuelve la cadena normal
         return $this -> descripcion;
+    }
+    
+    function completa() {
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> categoriaDAO -> completa());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
     }
     
 }

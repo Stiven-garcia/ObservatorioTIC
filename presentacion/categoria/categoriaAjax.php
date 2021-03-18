@@ -18,6 +18,7 @@ $categorias = $categoria -> consultarTodos();
 								<th scope="col">Nombre</th>
 								<th scope="col"><?php echo utf8_encode("Descripción")?></th>
 								<th scope="col">Valor</th>
+								<th scope="col">Completo</th>
 								<th scope="col">Numero de Indicadores</th>
 								<th scope="col">Servicios</th>
 							</tr>
@@ -27,8 +28,9 @@ $categorias = $categoria -> consultarTodos();
 						foreach ($categorias as $c) {
 						    echo "<tr>"; 
                             echo "<td>" . $c->getNombre() . "</td>";
-                            echo "<td>" . $c->limitar_cadena(70) . "</td>";
+                            echo "<td>" . $c->limitar_cadena(58) . "</td>";
                             echo "<td>" . $c->getValor() . "</td>";
+                            echo "<td> <progress class='progress' value='". ($c -> completa()*100)/$c ->getValor()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round(($c -> completa()*100)/$c ->getValor(),2) ."%'></progress></td>";
                             echo "<td>" . $c->cantidadIndicadores() . "</td>";
                             echo "<td>" . "
                                    <a id='ver".$c->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
@@ -91,7 +93,7 @@ $(document).ready(function(){
 		$("#Eliminar<?php echo $c -> getId(); ?>").click(function(e){
 			e.preventDefault();
 			var respuesta = false;
-		  respuesta = confirm("Desea eliminar la categoria con todos sus indicadores?")
+		  respuesta = confirm("Desea eliminar la categoria con todos sus indicadores y ariables?")
 			if(respuesta){
 				<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/categoria/categoriaAjax.php") ."&idRol=".$categoria -> getRol()."&idCategoria=". $c -> getId()."\";\n"; ?>
 				$("#resultadosCategoria").load(ruta);

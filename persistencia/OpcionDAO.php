@@ -53,10 +53,10 @@ class OpcionDAO {
                  AND opcion.Pregunta_idPregunta = ". $this ->pregunta;
     }
     function verificarValorM(){
-        return "SELECT SUM(indicador.valor), categoria.valor
-                 FROM categoria,indicador
+        return "SELECT SUM(opcion.valor), pregunta.valor
+                 FROM opcion, pregunta
                  WHERE pregunta.idPregunta= ". $this -> pregunta."
-                 AND opcion.Pregunta_idPregunta = ". $this ->pregunta ."
+                 AND opcion.Pregunta_idPregunta = ". $this ->pregunta."
                  AND idOpcion!=". $this -> id;
     }
 }

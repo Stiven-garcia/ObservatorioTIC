@@ -53,15 +53,24 @@ class IndicadorDAO {
     
     function eliminarPreguntas(){
         return "DELETE pregunta.* FROM pregunta
-                WHERE pregunta.Indicador_idIndicador =". $this -> id;
+                INNER JOIN variable
+                ON pregunta.variable = variable.idVariable
+                INNER JOIN indicador
+                ON variable.indicador = indicador.idIndicador
+                WHERE indicador.idIndicador =". $this -> idIndicador;
     }
     
     function eliminarOpciones(){
         return "DELETE opcion.* FROM opcion
                 INNER JOIN pregunta
                 ON opcion.Pregunta_idPregunta = pregunta.idPregunta
-                WHERE pregunta.Indicador_idIndicador =". $this -> id;
+                INNER JOIN variable
+                ON pregunta.variable = variable.idVariable
+                INNER JOIN indicador
+                ON variable.indicador = indicador.idIndicador
+                WHERE indicador.idIndicador =". $this -> idIndicador;
     }
+    
     function verificarValor(){
         return "SELECT SUM(indicador.valor), categoria.valor
                  FROM categoria,indicador 
@@ -78,10 +87,20 @@ class IndicadorDAO {
     
     function valorCategoria(){
         return "SELECT SUM(opcion.valor)
-                 FROM indicador, pregunta, opcion, realizar, encuesta
-                 WHERE respuesta = idOpcion and opcion.Pregunta_idPregunta= pregunta.idPregunta and Indicador_idIndicador = idIndicador and Encuesta = idEncuesta and encuesta.estado=1 and idIndicador = ". $this -> idIndicador;
+                 FROM indicador, pregunta, opcion, realizar, encuesta, variable
+                 WHERE respuesta = idOpcion and 
+                 opcion.Pregunta_idPregunta= pregunta.idPregunta 
+                 and pregunta.variable = idVariable 
+                 and variable.indicador = idIndicador 
+                and Encuesta = idEncuesta and encuesta.estado=1 
+                and idIndicador = ". $this -> idIndicador;
     }
     
+    function completa() {
+        return "SELECT SUM(variable.valor)
+                 FROM  variable
+                 WHERE indicador = ". $this -> idIndicador;
+    }
 }
 
 

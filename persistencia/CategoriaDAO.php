@@ -46,11 +46,18 @@ class CategoriaDAO {
         return "DELETE FROM indicador
                 WHERE Categoria_idCategoria=". $this -> id;
     }
-    
+    function eliminarVariables(){
+        return "DELETE variable.* FROM variable
+                INNER JOIN indicador
+                ON variable.indicador = indicador.idIndicador
+                WHERE indicador.Categoria_idCategoria =". $this -> id;
+    }
     function eliminarPreguntas(){
         return "DELETE pregunta.* FROM pregunta
+                INNER JOIN variable
+                ON pregunta.variable = variable.idVariable
                 INNER JOIN indicador
-                ON pregunta.Indicador_idIndicador = indicador.idIndicador
+                ON variable.indicador = indicador.idIndicador
                 WHERE indicador.Categoria_idCategoria =". $this -> id;
     }
     
@@ -58,8 +65,10 @@ class CategoriaDAO {
         return "DELETE opcion.* FROM opcion
                 INNER JOIN pregunta
                 ON opcion.Pregunta_idPregunta = pregunta.idPregunta
+                INNER JOIN variable
+                ON pregunta.variable = variable.idVariable
                 INNER JOIN indicador
-                ON pregunta.Indicador_idIndicador = indicador.idIndicador
+                ON variable.indicador = indicador.idIndicador
                 WHERE indicador.Categoria_idCategoria =". $this -> id;
     }
     
@@ -73,6 +82,12 @@ class CategoriaDAO {
         return "UPDATE categoria
                 SET nombre='". $this -> nombre . "', descripcion='". $this ->descripcion ."', valor=". $this -> valor .", rol_idRol=". $this -> rol."
                 WHERE idCategoria=". $this -> id;
+    }
+    
+    function completa() {
+        return "SELECT SUM(variable.valor)
+                 FROM  variable, indicador
+                 WHERE Categoria_idCategoria= ". $this -> id . " and idIndicador = indicador";
     }
     
 }

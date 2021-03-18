@@ -5,7 +5,7 @@ require_once 'persistencia/Conexion.php';
 class Pregunta {
     private $id;
     private $pregunta;
-    private $indicador;
+    private $variable;
     private $encuesta;
     private $valor;
     private $preguntaDAO;
@@ -27,7 +27,7 @@ class Pregunta {
         return $this -> pregunta;
     }
     
-    function getIndicador(){
+    function getVariable(){
         return $this -> indicador;
     }
     
@@ -36,14 +36,14 @@ class Pregunta {
     }
     
     
-    function Pregunta($id="", $pregunta="", $indicador="", $encuesta="", $valor=""){
+    function Pregunta($id="", $pregunta="", $variable="", $encuesta="", $valor=""){
         $this -> id = $id;
         $this -> pregunta = $pregunta;
-        $this -> indicador = $indicador;
+        $this -> variable = $variable;
         $this -> encuesta = $encuesta;
         $this -> valor = $valor;
         $this -> conexion = new Conexion();
-        $this -> preguntaDAO = new PreguntaDAO($id, $pregunta, $indicador, $encuesta, $valor);
+        $this -> preguntaDAO = new PreguntaDAO($id, $pregunta, $variable, $encuesta, $valor);
     }
     
     function consultar(){
@@ -52,7 +52,7 @@ class Pregunta {
         $resultado = $this -> conexion -> extraer();
         $this -> id = $resultado[0];
         $this -> pregunta = $resultado[1];
-        $this -> indicador = $resultado[2];
+        $this -> variable = $resultado[2];
         $this -> encuesta = $resultado[3];
         $this -> valor = $resultado[4];
         $this -> conexion -> cerrar();
@@ -92,11 +92,11 @@ class Pregunta {
         $this -> conexion -> cerrar();
     }
     
-    function limitar_cadena($limite){
+    function limitar_cadena($cadena,$limite){
         // Si la longitud es mayor que el límite...
-        if(strlen($this -> pregunta) > $limite){
+        if(strlen($cadena) > $limite){
             // Entonces corta la cadena y ponle el sufijo
-            return substr($this -> pregunta, 0, $limite) . "...";
+            return substr($cadena, 0, $limite) . "...";
         }
         
         // Si no, entonces devuelve la cadena normal
