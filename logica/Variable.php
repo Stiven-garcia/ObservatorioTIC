@@ -85,6 +85,7 @@ class Variable{
     
     function registrar(){
         $this -> conexion -> abrir();
+        echo $this -> variableDAO -> registrar();
         $this -> conexion -> ejecutar($this -> variableDAO -> registrar());
         $this -> conexion -> cerrar();
     }
@@ -124,31 +125,52 @@ class Variable{
         $this -> conexion -> ejecutar($this -> variableDAO -> verificarValor());
         $resultados = array();
         $resultado = $this -> conexion -> extraer();
+        if($resultado == null){
+            $resultados[0] = $resultado[0];
+            $resultados[1] = $resultado[1];
+            $this -> conexion -> cerrar();
+        }else{
+            $resultados[0] = 0;
+            $resultados[1] = $this -> verificarValorIndicador();
+        }
+        return $resultados;
+    }
+    
+    function verificarValorIndicador(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> variableDAO -> verificarValor());
+        $resultados = array();
+        $resultado = $this -> conexion -> extraer();
         $resultados[0] = $resultado[0];
-        $resultados[1] = $resultado[1];
         $this -> conexion -> cerrar();
         return $resultados;
     }
+    
     function verificarValorM(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> variableDAO -> verificarValorM());
         $resultados = array();
         $resultado = $this -> conexion -> extraer();
-        $resultados[0] = $resultado[0];
-        $resultados[1] = $resultado[1];
-        $this -> conexion -> cerrar();
+        if($resultado == null){
+            $resultados[0] = $resultado[0];
+            $resultados[1] = $resultado[1];
+            $this -> conexion -> cerrar();
+        }else{
+            $resultados[0] = 0;
+            $resultados[1] = $this -> verificarValorIndicador();
+        }
         return $resultados;
     }
     
     function limitar_cadena($limite){
         // Si la longitud es mayor que el límite...
-        if(strlen($this -> descripcion) > $limite){
+        if(strlen($this -> nombre) > $limite){
             // Entonces corta la cadena y ponle el sufijo
-            return substr($this -> descripcion, 0, $limite) . "...";
+            return substr($this -> nombre, 0, $limite) . "...";
         }
         
         // Si no, entonces devuelve la cadena normal
-        return $this -> descripcion;
+        return $this -> nombre;
     }
     
 }
