@@ -17,6 +17,8 @@ require 'logica/Realizar.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartkick/2.3.0/chartkick.min.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         $(function () {
         	  $('[data-toggle="tooltip"]').tooltip()

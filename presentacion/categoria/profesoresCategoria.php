@@ -35,7 +35,7 @@ en una organización. <br /> <br /> Las <strong>categorías</strong> del modelo de
 	   '. $c ->limitar_cadena(300) .'
 	    </div>
 	    <div class="buttons is-right">
-	    <a class="button has-text-white" style="background-color:#7317DA" href="index.php?pid='. base64_encode("presentacion/categoria/verCategoria.php").'&idCategoria='. $c ->getId() .'" >Ver</a>
+	    <a class="button has-text-white" style="background-color:#7317DA" href="index.php?pid='. base64_encode("presentacion/categoria/verCategoria.php").'&nos=true&idCategoria='. $c ->getId() .'" >Ver</a>
 	    </div>
 	    </div>
 	    </div>

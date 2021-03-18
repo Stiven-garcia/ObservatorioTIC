@@ -76,7 +76,11 @@ class IndicadorDAO {
                  AND idIndicador!=". $this -> idIndicador;
     }
     
-    
+    function valorCategoria(){
+        return "SELECT SUM(opcion.valor)
+                 FROM indicador, pregunta, opcion, realizar, encuesta
+                 WHERE respuesta = idOpcion and opcion.Pregunta_idPregunta= pregunta.idPregunta and Indicador_idIndicador = idIndicador and Encuesta = idEncuesta and encuesta.estado=1 and idIndicador = ". $this -> idIndicador;
+    }
     
 }
 

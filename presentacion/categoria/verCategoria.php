@@ -13,7 +13,22 @@ include 'presentacion/home/menu.php';
 </div>
   <div class="column" style="margin-top:-25px ;margin-left: 2.5%; margin-right: 2.5%; line-height: 200%; text-align: justify">
    
-      <p class="subtitle"><?php echo $categoria -> getDescripcion() . utf8_encode(" <br /> <br /> Los <strong>indicadores</strong> de esta categoría son las siguientes:") ?></p>
+      <p class="subtitle"><?php echo $categoria -> getDescripcion() ?><br /></p>
+  
+  <div id="categoria">
+  
+ <?php  echo "<script>";
+ $json="[";
+ foreach($indicadores as $i){
+     $json .= "[\"".$i ->getNombre()."\",".($i -> valorCategoria()*100)/$categoria->getValor()."],";	   
+ }
+ $json .= "]";
+                    	
+                    	echo "new Chartkick.ColumnChart(\"categoria\", " . $json . ")";
+                        echo "</script>";
+                    ?>		
+  </div>
+  <p class="subtitle"> <?php echo  utf8_encode(" <br /> <br /> Los <strong>indicadores</strong> de esta categoría son las siguientes:")?></p>
   </div>
 <div class="columns is-mobile is-multiline is-centered" style="margin-top: 10px">
 
@@ -32,7 +47,7 @@ include 'presentacion/home/menu.php';
 	   '. $i ->limitar_cadena(300) .'
 	    </div>
 	    <div class="buttons is-right">
-	    <a class="button has-text-white" style="background-color:#7317DA" href="index.php?pid='. base64_encode("presentacion/indicador/verIndicador.php").'&idIndicador='. $i -> getIdIndicador() .'" >Ver</a>
+	    <a class="button has-text-white" style="background-color:#7317DA" href="index.php?pid='. base64_encode("presentacion/indicador/verIndicador.php").'&nos=true&idIndicador='. $i -> getIdIndicador() .'" >Ver</a>
 	    </div>
 	    </div>
 	    </div>
@@ -46,7 +61,7 @@ include 'presentacion/home/menu.php';
 <div class="columns is-mobile">
   <div class="column is-2 is-offset-10"> 
     <div class="control">
-		<a class="button is-light" style="border: 1px solid"  href="index.php?pid=<?php echo ($categoria -> getRol() == 1)? base64_encode("presentacion/categoria/profesoresCategoria.php") : base64_encode("presentacion/categoria/estudiantesCategoria.php")?>" >Atras</a>
+		<a class="button is-light" style="border: 1px solid"  href="index.php?pid=<?php echo ($categoria -> getRol() == 1)? base64_encode("presentacion/categoria/profesoresCategoria.php") : base64_encode("presentacion/categoria/estudiantesCategoria.php")?>&nos=true" >Atras</a>
 	</div>
   </div>
 </div>
