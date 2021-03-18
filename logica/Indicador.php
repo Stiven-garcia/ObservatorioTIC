@@ -147,4 +147,12 @@ class Indicador {
         return $this -> descripcion;
     }
     
+    function valorCategoria(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> indicadorDAO -> valorCategoria());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
+    }
+    
 }
