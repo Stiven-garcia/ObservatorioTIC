@@ -1,7 +1,7 @@
 <?php
 $errorPregunta = 0;
 $pregunta = "";
-$indicador = "";
+$variable = "";
 $valor="";
 $tipo=0;
 $error=0;
@@ -19,7 +19,7 @@ if(isset($_GET["crear"])){
         $encuesta -> consultar();
         $tipo = 2;
         $pregunta = $preguntaE -> getPregunta();
-        $indicador = $preguntaE -> getIndicador();
+        $variable = $preguntaE -> getVariable();
         $valor = $preguntaE -> getValor();
     }
 }
@@ -29,8 +29,8 @@ if(isset($_POST["enviar"])){
     $pregunta = $_POST["pregunta"];
     $valor = $_POST["valor"];
     if($tipo==1){
-        $indicador = $_POST["indicador"];
-        $preguntaE = new Pregunta("", $pregunta, $indicador, $encuesta -> getId(), $valor);
+        $variable = $_POST["variable"];
+        $preguntaE = new Pregunta("", $pregunta, $variable, $encuesta -> getId(), $valor);
         if(!$preguntaE -> existePregunta()){
             $resultados = $preguntaE ->verificarValor();
             $suma = $resultados[0]+$valor;
@@ -111,6 +111,7 @@ include 'presentacion/home/menu.php';
 					</div>
 					
 					<div id="indicador" class="field"></div>
+					<div id="variable" class="field"></div>
 					<?php }?>
 					
 					<div class="field">
@@ -148,9 +149,18 @@ $(document).ready(function() {
 			} else{
 				$("#indicador").empty();
 			}
-			
-     
 	});
+
+	$("#indicador").change(function (){
+		var id= $("#indicador").val(); 
+		if(id!=""){
+			var ruta = "indexAjax.php?pid=<?php echo base64_encode("presentacion/variable/seleccionVariableAjax.php") ?>&idIndicador="+id;
+			$("#variable").load(ruta);
+		} else{
+			$("#variable").empty();
+		}
+    });
+	
 	$("#valor").blur(function (){
 			if($("#valor").val()==0){
 				$("#valor").removeClass();

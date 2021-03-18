@@ -15,7 +15,7 @@ $preguntas = $pregunta -> consultarTodos();
 			<th scope="col">ID</th>
 			<th scope="col">Pregunta</th>
 			<th scope="col">Valor</th>
-			<th scope="col">Indicador</th>
+			<th scope="col">Variable</th>
 			<th scope="col">Numero de Opciones</th>
 			<th scope="col">Completo</th>
 			<th scope="col">Servicios</th>
@@ -27,9 +27,9 @@ $i = 1;
 foreach ($preguntas as $p) {
     echo "<tr>";
     echo "<td>" . $i . "</td>";
-    echo "<td>" . $p->limitar_cadena(70) . "</td>";
+    echo "<td>" . $p -> limitar_cadena($p -> getPregunta(),58) . "</td>";
     echo "<td>" . $p->getValor() . "</td>";
-    echo "<td>" . $p->getIndicador() . "</td>";
+    echo "<td>" . $p -> limitar_cadena($p -> getVariable(),58) . "</td>";
     echo "<td>" . $p->cantidadOpciones() . "</td>";
     echo "<td> <progress class='progress' value='". ($p -> completa()*100)/$p -> getValor()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round(($p -> completa()*100)/$p -> getValor(), 2) ."%'></progress></td>";
     echo "<td>" . "<a id='ver" . $p->getId() . "' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>

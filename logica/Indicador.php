@@ -155,4 +155,12 @@ class Indicador {
         return $resultado[0];
     }
     
+    function completa() {
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> indicadorDAO -> completa());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
+    }
+    
 }

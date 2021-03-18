@@ -15,6 +15,7 @@ $indicadores = $indicador -> consultarTodos();
 								<th scope="col">Nombre</th>
 								<th scope="col">Descripcion</th>
 								<th scope="col">Valor</th>
+								<th scope="col">Completo</th>
 								<th scope="col">Servicios</th>
 							</tr>
 						</thead>
@@ -25,6 +26,7 @@ $indicadores = $indicador -> consultarTodos();
                     echo "<td>" . $in -> getNombre() . "</td>";
                     echo "<td>" . $in -> limitar_cadena(70) . "</td>";
                     echo "<td>" . $in -> getValor() . "</td>";
+                    echo "<td> <progress class='progress' value='". ($in -> completa()*100)/$in ->getValor()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round(($in -> completa()*100)/$in ->getValor(),2) ."%'></progress></td>";
                     echo "<td>" . "<a id='ver".$in->getIdIndicador()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
                                    <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearIndicador.php") . "&modificar=true&idIndicador=" . $in -> getIdIndicador() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
                                    <a id='Eliminar".$in->getIdIndicador()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>

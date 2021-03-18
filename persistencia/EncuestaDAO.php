@@ -47,7 +47,7 @@
         return "DELETE opcion.* FROM opcion
                 INNER JOIN pregunta
                 ON opcion.Pregunta_idPregunta = pregunta.idPregunta
-                WHERE  WHERE pregunta.Encuesta=". $this -> id;
+                WHERE pregunta.Encuesta=". $this -> id;
     }
    
     

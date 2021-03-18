@@ -1,8 +1,8 @@
 <?php
 $indicador = new Indicador($_GET["idIndicador"]);
 $indicador -> consultar();
-$pregunta = new Pregunta("","",$indicador -> getIdIndicador());
-$preguntas = $pregunta -> consultarTodos();
+$variable = new Variable("","",$indicador -> getIdIndicador());
+$variables = $variable -> consultarTodos();
 include 'presentacion/home/menu.php';
 ?>
 <div class="columns is-mobile">
@@ -20,7 +20,7 @@ include 'presentacion/home/menu.php';
 <div class="columns is-mobile is-multiline is-centered" style="margin-top: 10px">
    <div id="indicador">
   
- <?php  echo "<script>";
+ <?php  /*echo "<script>";
  $json="[";
  foreach($preguntas as $p){
      $json .= "[\"".$p ->getNombre()."\",".$p -> valorCategoria()."],";	   
@@ -28,7 +28,7 @@ include 'presentacion/home/menu.php';
  $json .= "]";
                     	
                     	echo "new Chartkick.ColumnChart(\"indicador\", " . $json . ")";
-                        echo "</script>";
+                        echo "</script>";*/
                     ?>		
   </div>
 </div>

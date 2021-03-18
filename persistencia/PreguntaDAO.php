@@ -3,34 +3,34 @@
 class PreguntaDAO {
     private $id;
     private $pregunta;
-    private $indicador;
+    private $variable;
     private $encuesta;
     private $valor;
     
-    function PreguntaDAO ($id, $pregunta, $indicador, $encuesta, $valor){
+    function PreguntaDAO ($id, $pregunta, $variable, $encuesta, $valor){
         $this -> id = $id;
         $this -> pregunta = $pregunta;
-        $this -> indicador = $indicador;
+        $this -> variable = $variable;
         $this -> encuesta = $encuesta;
         $this -> valor = $valor;
     }
     
     
     function consultar(){
-        return "select idPregunta, pregunta, Indicador_idIndicador, Encuesta, valor
+        return "select idPregunta, pregunta, variable, Encuesta, valor
                 from pregunta
                 where idPregunta = '" . $this -> id . "'";
     }
     
     function consultarTodos(){
-        return "select idPregunta, pregunta, indicador.nombre, Encuesta, pregunta.valor
-                from pregunta, indicador
-                where Encuesta = ". $this -> encuesta ." and idIndicador=Indicador_idIndicador ORDER BY idPregunta ASC";
+        return "select idPregunta, pregunta, variable.nombre, Encuesta, pregunta.valor
+                from pregunta, variable
+                where Encuesta = ". $this -> encuesta ." and pregunta.variable = idVariable ORDER BY idPregunta ASC";
     }
     
     function registrar(){
-        return "INSERT INTO pregunta (pregunta, Indicador_idIndicador, Encuesta, valor)
-                VALUES ('" . $this -> pregunta . "'," . $this -> indicador . ",".$this -> encuesta.",". $this -> valor.")";
+        return "INSERT INTO pregunta (pregunta, variable, Encuesta, valor)
+                VALUES ('" . $this -> pregunta . "'," . $this -> variable . ",".$this -> encuesta.",". $this -> valor.")";
     }
     /*
      function eliminarCategoria(){
@@ -68,16 +68,16 @@ class PreguntaDAO {
     }
     
     function verificarValor(){
-        return "SELECT SUM(pregunta.valor), indicador.valor
-                 FROM indicador, pregunta
-                 WHERE pregunta.Indicador_idIndicador= ". $this -> indicador."
-                 AND indicador.idIndicador = ". $this ->indicador;
+        return "SELECT SUM(pregunta.valor), variable.valor
+                 FROM variable, pregunta
+                 WHERE pregunta.variable= ". $this -> variable."
+                 AND variable.idVariable = ". $this ->variable;
     }
     function verificarValorM(){
-        return "SELECT SUM(indicador.valor), categoria.valor
-                 FROM categoria,indicador
-                  WHERE pregunta.Indicador_idIndicador= ". $this -> indicador."
-                 AND indicador.idIndicador = ". $this ->indicador ."
+        return "SELECT SUM(pregunta.valor), variable.valor
+                 FROM variable, pregunta
+                 WHERE pregunta.variable= ". $this -> variable."
+                 AND variable.idVariable = ". $this ->variable."
                  AND idPregunta!=". $this -> id;
     }
     
