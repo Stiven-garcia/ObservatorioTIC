@@ -68,9 +68,9 @@ include 'presentacion/home/menu.php';
                             echo "<td> <i id='Estado" . $e->getId() . "' class='fas ".(($e->getEstado()==0)? "fa-times-circle":"fa-check-circle")."' data-toggle='tooltip' data-placement='left' title='" . ($e->getEstado()==0?"Inhabilitado":"Habilitado") . "'></i></td>";
                             echo "<td>" . "
                                    <a id='ver".$e->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
-                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearEncuesta.php") . "&modificar=true&idEncuesta=" . $e->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>";
-                            if( $e->getActivada()==1 && $e->getEstado()==0){}else{ echo "<a style='margin-right:2px; margin-left:2px' id='cambiarEstado".$e->getId()."' href='#' class='fas fa-power-off' data-toggle='tooltip' data-placement='left' title='" . ($e->getEstado()==0?"Habilitar":"Inhabilitar") . "'> </a>";}
-                              echo "<a id='Eliminar".$e->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
+                                   <a class='fas fa-pencil-ruler' style='margin-right:2px' href='index.php?pid=" . base64_encode("presentacion/administrador/crearEncuesta.php") . "&modificar=true&idEncuesta=" . $e->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>";
+                            if( $e->getActivada()==1 && $e->getEstado()==0){}else{ echo "<a id='cambiarEstado".$e->getId()."' href='#' class='fas fa-power-off' data-toggle='tooltip' data-placement='left' title='" . ($e->getEstado()==0?"Habilitar":"Inhabilitar") . "'> </a>";}
+                              echo "<a id='Eliminar".$e->getId()."' style='margin-left:2px' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
                                  </td>";
                            echo "</tr>";      
                            $i++;

@@ -50,9 +50,9 @@ include 'presentacion/home/menu.php';
                     echo "<td>" . $i . "</td>";
                     echo "<td>" . $o -> limitar_cadena(70) . "</td>";
                     echo "<td>" . $o -> getValor() . "</td>";
-                    echo "<td>" . "<a id='ver".$o->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>";
-                    if($encuesta -> getActivada()==0){     echo "<a style='margin-right:2px; margin-left:2px' class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearOpciones.php") . "&modificar=true&idOpcion=" . $o->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
-                                  <a style='margin-right:2px; margin-left:2px' id='Eliminar".$o->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>";}
+                    echo "<td>" . "<a id='ver".$o->getId()."' style='margin-right:2px' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>";
+                    if($encuesta -> getActivada()==0){     echo "<a style='margin-right:2px' class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearOpciones.php") . "&modificar=true&idOpcion=" . $o->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
+                                  <a id='Eliminar".$o->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>";}
                       echo    "</td>";
                     echo "</tr>";
                     $i++;

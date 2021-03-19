@@ -81,6 +81,17 @@ class VariableDAO {
                  AND variable.idVariable !=". $this -> id;
     }
     
+    function valorVariable(){
+        return "SELECT SUM(opcion.valor)
+                 FROM indicador, pregunta, opcion, realizar, variable, encuesta
+                 WHERE respuesta = idOpcion and
+                 opcion.Pregunta_idPregunta= pregunta.idPregunta
+                 and pregunta.variable = idVariable
+                 and variable.indicador = idIndicador
+                and Encuesta = idEncuesta and encuesta.estado=1
+                and idVariable = ". $this -> id;
+    }
+    
 }
 
 

@@ -61,10 +61,10 @@ include 'presentacion/home/menu.php';
                     echo "<td>" . $p -> limitar_cadena($p -> getVariable(),58) . "</td>";
                     echo "<td>" . $p -> cantidadOpciones() . "</td>";
                     echo "<td> <progress class='progress' value='". ($p -> completa()*100)/$p -> getValor()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round(($p -> completa()*100)/$p -> getValor(),2) ."%'></progress></td>";
-                    echo "<td>" . "<a id='ver".$p->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>";
-                    if($encuesta -> getActivada()==0){      echo "<a style='margin-right:2px; margin-left:2px' class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&modificar=true&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>";}
-                                 echo "<a class='fas fa-tasks' href='index.php?pid=" . base64_encode("presentacion/administrador/consultarOpciones.php") . "&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Ver Opciones'> </a>";
-                                 if($encuesta -> getActivada()==0){   echo "<a style='margin-right:2px; margin-left:2px' id='Eliminar".$p->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>";}
+                    echo "<td>" . "<a id='ver".$p->getId()."' class='fas fa-eye' style='margin-right:2px' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>";
+                    if($encuesta -> getActivada()==0){      echo "<a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&modificar=true&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>";}
+                                 echo "<a class='fas fa-tasks' style='margin-right:2px; margin-left:2px' href='index.php?pid=" . base64_encode("presentacion/administrador/consultarOpciones.php") . "&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Ver Opciones'> </a>";
+                                 if($encuesta -> getActivada()==0){   echo "<a id='Eliminar".$p->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>";}
                        echo "</td>";
                     echo "</tr>";
                     $i++;

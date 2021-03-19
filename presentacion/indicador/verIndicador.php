@@ -1,7 +1,7 @@
 <?php
 $indicador = new Indicador($_GET["idIndicador"]);
 $indicador -> consultar();
-$variable = new Variable("","",$indicador -> getIdIndicador());
+$variable = new Variable("","", "",$indicador -> getIdIndicador());
 $variables = $variable -> consultarTodos();
 include 'presentacion/home/menu.php';
 ?>
@@ -18,19 +18,36 @@ include 'presentacion/home/menu.php';
   
   </div>
 <div class="columns is-mobile is-multiline is-centered" style="margin-top: 10px">
+  <div class="column">
    <div id="indicador">
   
- <?php  /*echo "<script>";
+ <?php  echo "<script>";
  $json="[";
- foreach($preguntas as $p){
-     $json .= "[\"".$p ->getNombre()."\",".$p -> valorCategoria()."],";	   
- }
+  $json .= "[\"Valor Esperado Indicador\",".$indicador -> getValor() * $indicador ->valorIndicador()[1]."],";	   
+  $json .= "[\"Valor Actual Indicador\",".$indicador ->valorIndicador()[0]."],";	
  $json .= "]";
                     	
                     	echo "new Chartkick.ColumnChart(\"indicador\", " . $json . ")";
-                        echo "</script>";*/
+                        echo "</script>";
                     ?>		
   </div>
+ </div> 
+ <div class="column">
+   <div id="indicador2">
+  
+ <?php  echo "<script>";
+ $json="[";
+ foreach ($variables as $v){
+     $json .= "[\"". $v -> getNombre() ."\",". ($v -> valorVariable()*100)/ $v ->getValor()."],";	   
+ }
+  
+ $json .= "]";
+                    	
+                    	echo "new Chartkick.ColumnChart(\"indicador2\", " . $json . ")";
+                        echo "</script>";
+                    ?>		
+  </div>
+ </div> 
 </div>
 <div class="columns is-mobile">
   <div class="column is-2 is-offset-10"> 

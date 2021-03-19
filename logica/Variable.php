@@ -173,4 +173,12 @@ class Variable{
         return $this -> nombre;
     }
     
+    function valorVariable(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> variableDAO -> valorVariable());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
+    }
+    
 }

@@ -28,7 +28,7 @@ class Pregunta {
     }
     
     function getVariable(){
-        return $this -> indicador;
+        return $this -> variable;
     }
     
     function getEncuesta(){
@@ -100,7 +100,7 @@ class Pregunta {
         }
         
         // Si no, entonces devuelve la cadena normal
-        return $this -> pregunta;
+        return $cadena;
     }
     
     function existePregunta(){
