@@ -75,16 +75,13 @@ if($_SESSION['id'] != ""){
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item">
-           Agregar Noticias
-          </a>
-          <a class="navbar-item">
-           Consultar Noticias
+          <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarNoticias.php")?>&tipo=1">
+           Consultar Noticias y Eventos
           </a>
         </div>
       </div>
        <?php }else{ ?>
-	  <a class="navbar-item">
+	  <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/noticia/verNoticia.php")?>&nos=true">
         Noticias y Eventos
       </a>
       <?php } ?>

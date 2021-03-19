@@ -1,52 +1,19 @@
 <?php
+
+$tipo = $_GET["tipo"];
+if(isset($_GET["idNoticia"])){
+    $noticia = new Noticia($_GET["idNoticia"]);
+    $noticia -> eliminar();
+}
 $noticia = new Noticia();
 $noticias = null;
-$tipo = $_GET["tipo"];
 if($tipo == 1){
     $noticias = $noticia -> consultarNoticias();
 }else{
     $noticias = $noticia -> consultarEventos();
 }
-
-include 'presentacion/home/menu.php';
 ?>
-<div class="columns is-centered " style="margin-top: 10px">
-  <div class="column is-four-fifths">
- 		<div class="columns">
- 				 <div class="column is-1"> </div>
-                  <div class="column is-two-thirds"> 
-                  <div class="dropdown is-hoverable">
-                  <div class="dropdown-trigger">
-                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
-                      <span><?php echo utf8_encode("Seleccioné el tipo")?></span>
-                      <span class="icon is-small">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                      </span>
-                    </button>
-                  </div>
-                  <div class="dropdown-menu" role="menu">
-                    <div class="dropdown-content">
-                      <a id="seleccionar1" href="#" class="dropdown-item">
-                        Noticias
-                      </a>
-                      <a id="seleccionar2" href="#" class="dropdown-item">
-                        Eventos
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                  </div>
-                  <div class="column"> 
-                  <a id="agregar" class="button" style="background-color:#7317DA; color:#FFFFFF"   href="<?php echo "index.php?pid=" . base64_encode("presentacion/administrador/crearNoticias.php") . "&crear=true&tipo=" . $tipo  ?>" > <?php echo (($tipo == 1)? "Agregar Noticia" : "Agregar Evento" )?></a>
-                  </div>
-  		</div>
-  </div>
-</div>
-
-<div class="columns is-centered" style="margin-top: 10px">
-  <div class="column is-four-fifths">
-		<div class="card" id="resultadosNoticias" >
-			<header class="card-header" style="background-color:#7317DA">
+<header class="card-header" style="background-color:#7317DA">
 				<p class="card-header-title has-text-white is-centered"  style="font-size:20px "><?php echo (($tipo == 1)? "Noticias Creadas" : "Eventos Creados") ?></p>
 			</header>
 				<div class="card-content">
@@ -86,10 +53,7 @@ include 'presentacion/home/menu.php';
 					</table>
 					</div>
 				</div>
-		</div>
-	</div>	
-</div>
-					
+				
 <div class="modal" id="myModal">
   <div class="modal-background"></div>
   <div class="modal-card">
@@ -152,14 +116,12 @@ $(document).ready(function(){
 		<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/noticia/noticiaAjax.php") ."&tipo=1\";\n";  ?>
 		<?php echo "var link = \"index.php?pid=" . base64_encode("presentacion/administrador/crearNoticias.php") . "&crear=true&tipo=1\";\n";  ?>
 		$('#agregar').attr('href', link);
-		$('#agregar').text("Agregar Noticia");
 		$("#resultadosNoticias").load(ruta);
 	});
 	$("#seleccionar2").click(function(){
 		<?php echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/noticia/noticiaAjax.php") ."&tipo=2\";\n"; ?>
 		<?php echo "var link = \"index.php?pid=" . base64_encode("presentacion/administrador/crearNoticias.php") . "&crear=true&tipo=2\";\n";  ?>
 		$('#agregar').attr('href', link);
-		$('#agregar').text("Agregar Evento");
 		$("#resultadosNoticias").load(ruta);
 	});
 });
