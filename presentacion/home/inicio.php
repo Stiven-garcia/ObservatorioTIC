@@ -1,4 +1,8 @@
 <?php
+    $categoria1 = new Categoria("","","","",1);
+    $categorias1 = $categoria1 -> consultarTodos();
+    $categoria2 = new Categoria("","","","",2);
+    $categorias2 = $categoria2 -> consultarTodos();
     include 'presentacion/home/menu.php';
 ?>
 <!--seccion inicial de la descripcion del portal -->
@@ -60,6 +64,41 @@
  <p style="text-align:center">
  <img src="Imagenes/Descripcion modelo - Pagina web.png">
  </p>
+ 
+ <div class="columns is-mobile is-multiline is-centered" style="margin-top: 10px">
+  <div class="column">
+  <p style="margin-top: 10px" class="subtitle is-3 has-text-centered"><strong>Profesores</strong></p>
+  <div id="profesores">
+  <?php  echo "<script>";
+ $json="[";
+ foreach ($categorias1 as $c){
+     $json .= "[\"". $c -> getNombre() ."\",". ($c -> valorCategoria()*100)/ $c ->getValor()."],";	   
+ }
+  
+ $json .= "]";
+                    	
+                    	echo "new Chartkick.ColumnChart(\"profesores\", " . $json . ")";
+                        echo "</script>";
+   ?>	
+  </div>
+  </div>
+  <div class="column">
+  <p style="margin-top: 10px" class="subtitle is-3 has-text-centered"><strong>Estudiantes</strong></p>
+  <div id="estudiantes">
+  <?php  echo "<script>";
+ $json="[";
+ foreach ($categorias2 as $c){
+     $json .= "[\"". $c -> getNombre() ."\",". ($c -> valorCategoria()*100)/ $c ->getValor()."],";	   
+ }
+  
+ $json .= "]";
+                    	
+                    	echo "new Chartkick.ColumnChart(\"estudiantes\", " . $json . ")";
+                        echo "</script>";
+   ?>
+  </div>
+  </div>
+  </div>
  
 </section>
 

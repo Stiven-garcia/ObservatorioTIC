@@ -10,41 +10,41 @@ $pregunta = new Pregunta("","","", $encuesta -> getId());
 $preguntas = $pregunta -> consultarTodos();
 ?>
 <table class="table table-striped table-hover">
-	<thead>
-		<tr>
-			<th scope="col">ID</th>
-			<th scope="col">Pregunta</th>
-			<th scope="col">Valor</th>
-			<th scope="col">Variable</th>
-			<th scope="col">Numero de Opciones</th>
-			<th scope="col">Completo</th>
-			<th scope="col">Servicios</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php
-$i = 1;
-foreach ($preguntas as $p) {
-    echo "<tr>";
-    echo "<td>" . $i . "</td>";
-    echo "<td>" . $p -> limitar_cadena($p -> getPregunta(),58) . "</td>";
-    echo "<td>" . $p->getValor() . "</td>";
-    echo "<td>" . $p -> limitar_cadena($p -> getVariable(),58) . "</td>";
-    echo "<td>" . $p->cantidadOpciones() . "</td>";
-    echo "<td> <progress class='progress' value='". ($p -> completa()*100)/$p -> getValor()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round(($p -> completa()*100)/$p -> getValor(), 2) ."%'></progress></td>";
-    echo "<td>" . "<a id='ver" . $p->getId() . "' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
-                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&modificar=true&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
-                                   <a class='fas fa-tasks' href='index.php?pid=" . base64_encode("presentacion/administrador/consultarOpciones.php") . "&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Ver Opciones'> </a>
-                                   <a id='Eliminar" . $p->getId() . "' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
-                          </td>";
-    echo "</tr>";
-    $i ++;
-}
-echo "<tr><td colspan='9'>" . count($preguntas) . " registros encontrados</td></tr>
-                       <tr><td colspan='5'>  <a href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&crear=true&idPregunta=" . $encuesta->getId() . "'  class='fas fa-plus'>Agregar Pregunta</a> </td></tr>"?>
+						<thead>
+							<tr>
+							   <th scope="col">ID</th>
+								<th scope="col">Pregunta</th>
+								<th scope="col">Valor</th>
+								<th scope="col">Variable</th>
+								<th scope="col">Numero de Opciones</th>
+								<th scope="col">Completo</th>
+								<th scope="col">Servicios</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+						$i = 1;
+						foreach ($preguntas as $p) {
+						    echo "<tr>";
+						    echo "<td>" . $i . "</td>";
+						    echo "<td>" . $p -> limitar_cadena($p -> getPregunta(),58) . "</td>";
+						    echo "<td>" . $p -> getValor() . "</td>";
+						    echo "<td>" . $p -> limitar_cadena($p -> getVariable(),58) . "</td>";
+						    echo "<td>" . $p -> cantidadOpciones() . "</td>";
+						    echo "<td> <progress class='progress' value='". ($p -> completa()*100)/$p -> getValor()  ."' max='100' data-toggle='tooltip' data-placement='left' title='". round(($p -> completa()*100)/$p -> getValor(),2) ."%'></progress></td>";
+						    echo "<td>" . "<a id='ver".$p->getId()."' style='margin-right:2px' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>";
+						    if($encuesta -> getActivada()==0){      echo "<a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&modificar=true&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>";}
+						    echo "<a class='fas fa-tasks' style='margin-right:2px; margin-left:2px' href='index.php?pid=" . base64_encode("presentacion/administrador/consultarOpciones.php") . "&idPregunta=" . $p->getId() . "' data-toggle='tooltip' data-placement='left' title='Ver Opciones'> </a>";
+						    if($encuesta -> getActivada()==0){   echo "<a id='Eliminar".$p->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>";}
+						    echo "</td>";
+						    echo "</tr>";
+						    $i++;
+						    
+						}
+                echo "<tr><td colspan='9'>" . count($preguntas) . " registros encontrados</td></tr>";
+                if($encuesta -> getActivada()==0){  echo "<tr><td colspan='7'>  <a href='index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php") . "&crear=true&idPregunta=" . $encuesta -> getId() .  "'  class='fas fa-plus'>Agregar Pregunta</a> </td></tr>";}?>
 						</tbody>
-</table>
-
+					</table>
 
 <!-- Control Modal -->
 <script type="text/javascript"> 

@@ -101,7 +101,22 @@ class IndicadorDAO {
                  FROM  variable
                  WHERE indicador = ". $this -> idIndicador;
     }
+    
+    
+    function valorIndicador(){
+        return "SELECT SUM(opcion.valor), COUNT(realizar.Usuario_idUsuario)
+                 FROM indicador, pregunta, opcion, realizar, variable, encuesta
+                 WHERE respuesta = idOpcion and
+                 opcion.Pregunta_idPregunta= pregunta.idPregunta
+                 and pregunta.variable = idVariable
+                 and variable.indicador = idIndicador
+                and Encuesta = idEncuesta and encuesta.estado=1
+                and idIndicador = ". $this -> idIndicador. " GROUP BY realizar.Usuario_idUsuario";
+    }
+    
 }
+
+
 
 
 ?>

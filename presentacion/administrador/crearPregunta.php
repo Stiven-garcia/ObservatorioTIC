@@ -96,23 +96,41 @@ include 'presentacion/home/menu.php';
 						</div>
 						
                     <?php if($tipo ==1){?>
-					<div class="field">
-						<label class="label">Categoria</label>
-						<div class="control">
-							<div class="select">
-								<select id="categoria" name="categoria" required>
-									<option value="" >Seleccionar</option>
+						<div class="field">
+							<label class="label">Categoria</label>
+							<div class="control">
+								<div class="select">
+									<select id="categoria" name="categoria" required>
+										<option value="">Seleccionar</option>
 									<?php foreach ($categorias as $c){
 									    echo '<option value="'.$c -> getId().'" >'. $c -> getNombre().'</option>';
 									}?>
 								</select>
+								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div id="indicador" class="field"></div>
-					<div id="variable" class="field"></div>
-					<?php }?>
+
+						<div class="field">
+							<label class="label">Indicador</label>
+							<div class="control">
+								<div class="select">
+									<select id="indicador" name="indicador" required>
+										<option value="">Seleccionar</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label">Variable</label>
+							<div class="control">
+								<div class="select">
+									<select id="variable" name="variable" required>
+										<option value="">Seleccionar</option>
+			                        </select>
+								</div>
+							</div>
+						</div>
+						<?php }?>
 					
 					<div class="field">
 							<label class="label">Valor</label>
@@ -150,10 +168,10 @@ $(document).ready(function() {
 				$("#indicador").empty();
 			}
 	});
-
 	$("#indicador").change(function (){
 		var id= $("#indicador").val(); 
 		if(id!=""){
+			
 			var ruta = "indexAjax.php?pid=<?php echo base64_encode("presentacion/variable/seleccionVariableAjax.php") ?>&idIndicador="+id;
 			$("#variable").load(ruta);
 		} else{

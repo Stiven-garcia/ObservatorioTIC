@@ -25,11 +25,7 @@ class PreguntaDAO {
     function consultarTodos(){
         return "select idPregunta, pregunta, variable.nombre, Encuesta, pregunta.valor
                 from pregunta, variable
-<<<<<<< HEAD
-                where Encuesta = ". $this -> encuesta ." and idVariable = variable ORDER BY idPregunta ASC";
-=======
                 where Encuesta = ". $this -> encuesta ." and pregunta.variable = idVariable ORDER BY idPregunta ASC";
->>>>>>> main
     }
     
     function registrar(){

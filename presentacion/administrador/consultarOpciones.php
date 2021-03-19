@@ -1,11 +1,13 @@
 <?php
 $pregunta= new Pregunta($_GET["idPregunta"]);
 $pregunta -> consultar();
+$encuesta = new Encuesta($pregunta -> getEncuesta());
+$encuesta -> consultar();
 $opcion = new Opcion("","","", $pregunta ->getId());
 $opciones = $opcion -> consultarTodos();
 include 'presentacion/home/menu.php';
 ?>
-
+<?php if($encuesta -> getActivada()==0){?>
 <div class="columns is-centered " style="margin-top: 10px">
   <div class="column is-four-fifths">
  		<div class="columns">
@@ -15,7 +17,7 @@ include 'presentacion/home/menu.php';
   		</div>
   </div>
 </div>
-
+<?php }?>
 <div class="columns is-centered" style="margin-top: 10px">
   <div class="column is-four-fifths">
 		<div class="card">
@@ -48,16 +50,16 @@ include 'presentacion/home/menu.php';
                     echo "<td>" . $i . "</td>";
                     echo "<td>" . $o -> limitar_cadena(70) . "</td>";
                     echo "<td>" . $o -> getValor() . "</td>";
-                    echo "<td>" . "<a id='ver".$o->getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
-                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearOpciones.php") . "&modificar=true&idOpcion=" . $o->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
-                                   <a id='Eliminar".$o->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
-                          </td>";
+                    echo "<td>" . "<a id='ver".$o->getId()."' style='margin-right:2px' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>";
+                    if($encuesta -> getActivada()==0){     echo "<a style='margin-right:2px' class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearOpciones.php") . "&modificar=true&idOpcion=" . $o->getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
+                                  <a id='Eliminar".$o->getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>";}
+                      echo    "</td>";
                     echo "</tr>";
                     $i++;
                 
                 }
-                echo "<tr><td colspan='9'>" . count($opciones) . " registros encontrados</td></tr>
-                       <tr><td colspan='5'>  <a href='index.php?pid=" . base64_encode("presentacion/administrador/crearOpciones.php") . "&crear=true&idPregunta=" . $pregunta -> getId() .  "'  class='fas fa-plus'>Agregar Opcion</a> </td></tr>"?>
+                echo "<tr><td colspan='4'>" . count($opciones) . " registros encontrados</td></tr>";
+                  if($encuesta -> getActivada()==0){     echo "<tr><td colspan='4'>  <a href='index.php?pid=" . base64_encode("presentacion/administrador/crearOpciones.php") . "&crear=true&idPregunta=" . $pregunta -> getId() .  "'  class='fas fa-plus'>Agregar Opcion</a> </td></tr>";}?>
 						</tbody>
 					</table>
 					</div>

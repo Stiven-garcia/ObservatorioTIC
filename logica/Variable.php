@@ -85,7 +85,6 @@ class Variable{
     
     function registrar(){
         $this -> conexion -> abrir();
-        echo $this -> variableDAO -> registrar();
         $this -> conexion -> ejecutar($this -> variableDAO -> registrar());
         $this -> conexion -> cerrar();
     }
@@ -122,10 +121,11 @@ class Variable{
     
     function verificarValor(){
         $this -> conexion -> abrir();
+        echo 
         $this -> conexion -> ejecutar($this -> variableDAO -> verificarValor());
         $resultados = array();
         $resultado = $this -> conexion -> extraer();
-        if($resultado == null){
+        if($resultado != null){
             $resultados[0] = $resultado[0];
             $resultados[1] = $resultado[1];
             $this -> conexion -> cerrar();
@@ -171,6 +171,14 @@ class Variable{
         
         // Si no, entonces devuelve la cadena normal
         return $this -> nombre;
+    }
+    
+    function valorVariable(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> variableDAO -> valorVariable());
+        $resultado = $this -> conexion -> extraer();
+        $this -> conexion -> cerrar();
+        return $resultado[0];
     }
     
 }

@@ -5,25 +5,23 @@
     private $rol;
     private $fecha;
     private $estado;
+    private $activada;
     
-    function EncuestaDAO ($id, $rol, $fecha, $estado){
+    function EncuestaDAO ($id, $rol, $fecha,$estado, $activada){
         $this -> id = $id;
         $this -> rol = $rol;
         $this -> fecha = $fecha;
         $this -> estado = $estado;
-    }
-    
-    function setId(){
-        
+        $this -> activada = $activada;
     }
     
     function consultar(){
-        return "select idEncuesta, Rol_idRol, fechaApertura, estado from encuesta
+        return "select idEncuesta, Rol_idRol, fechaApertura, estado, activada from encuesta
                 where idEncuesta = '" . $this -> id . "'";
     }
     
     function consultarTodos(){
-        return "select idEncuesta, Rol_idRol, fechaApertura, estado
+        return "select idEncuesta, Rol_idRol, fechaApertura, estado, activada
                 from encuesta
                 where Rol_idRol = ". $this -> rol ." ORDER BY fechaApertura DESC";
     }
@@ -69,10 +67,21 @@
                 WHERE idEncuesta=". $this -> id;
     }
     
+    function cambiarActivada(){
+        return "UPDATE encuesta
+                SET activada=1
+                WHERE idEncuesta=". $this -> id;
+    }
+    
     function cambiarEstados(){
         return "UPDATE encuesta
                 SET estado=0
                 WHERE idEncuesta!=". $this -> id ." and Rol_idRol=".$this -> rol;
+    }
+    function activarUsuarios(){
+        return "UPDATE usuario
+                SET terminar=1
+                WHERE Rol_idRol=".$this -> rol;
     }
     
     function cantidadPreguntas() {

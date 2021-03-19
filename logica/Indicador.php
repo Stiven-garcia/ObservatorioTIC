@@ -163,4 +163,23 @@ class Indicador {
         return $resultado[0];
     }
     
+    function valorIndicador(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> indicadorDAO -> valorIndicador());
+        $resultados = array();
+        $resultado = $this -> conexion -> extraer();
+        if($resultado[0]== null){
+            $resultados[0] = 0;
+        }else{
+            $resultados[0] = $resultado[0];
+        }
+        if($resultado[1]== null){
+            $resultados[1] = 0;
+        }else{
+            $resultados[1] = $resultado[1];
+        }
+        $this -> conexion -> cerrar();
+        return $resultados;
+    }
+    
 }

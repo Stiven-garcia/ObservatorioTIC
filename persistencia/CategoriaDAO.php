@@ -90,6 +90,18 @@ class CategoriaDAO {
                  WHERE Categoria_idCategoria= ". $this -> id . " and idIndicador = indicador";
     }
     
+    function valorCategoria(){
+        return "SELECT SUM(opcion.valor)
+                 FROM indicador, pregunta, opcion, realizar, encuesta, variable, categoria
+                 WHERE respuesta = idOpcion and
+                 opcion.Pregunta_idPregunta= pregunta.idPregunta
+                 and pregunta.variable = idVariable
+                 and variable.indicador = idIndicador
+                and Encuesta = idEncuesta and encuesta.estado=1
+                and categoria.idCategoria = indicador.Categoria_idCategoria
+                and idCategoria = ". $this -> id;
+    }
+    
 }
 
 ?>

@@ -7,8 +7,17 @@ class Encuesta {
     private $rol;
     private $fecha;
     private $estado;
+    private $activada;
     private $encuestaDAO;
     private $conexion;
+    
+    function getActivada(){
+        return $this-> activada;
+    }
+    
+    function setActivada($activada){
+        $this->activada = $activada;
+    }
     
     function getId(){
         return $this->id;
@@ -44,13 +53,14 @@ class Encuesta {
     }
 
 
-    function Encuesta($id="", $rol="", $fecha="", $estado=""){
+    function Encuesta($id="", $rol="", $fecha="", $estado="", $activada=""){
         $this -> id = $id;
         $this -> rol = $rol;
         $this -> fecha = $fecha;
         $this -> estado = $estado;
+        $this -> activada = $activada;
         $this -> conexion = new Conexion();
-        $this -> encuestaDAO = new EncuestaDAO($id, $rol, $fecha, $estado);
+        $this -> encuestaDAO = new EncuestaDAO($id, $rol, $fecha, $estado, $activada);
     }
     
     function consultar(){
@@ -61,6 +71,7 @@ class Encuesta {
         $this -> rol = $resultado[1];
         $this -> fecha = $resultado[2];
         $this -> estado = $resultado[3];
+        $this -> activada = $resultado[4];
         $this -> conexion -> cerrar();
     }
     
@@ -70,7 +81,7 @@ class Encuesta {
         $resultados = array();
         $i = 0;
         while (($registro = $this -> conexion -> extraer()) != null) {
-            $resultados[$i] = new Encuesta($registro[0],$registro[1],$registro[2],$registro[3]);
+            $resultados[$i] = new Encuesta($registro[0],$registro[1],$registro[2],$registro[3], $registro[4]);
             $i++;
         }
         $this -> conexion -> cerrar();
@@ -112,7 +123,19 @@ class Encuesta {
         $this -> conexion -> ejecutar($this -> encuestaDAO -> cambiarEstado());
         $this -> conexion -> cerrar();
     }
-  
+    
+    function cambiarActivada(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> encuestaDAO -> cambiarActivada());
+        $this -> conexion -> cerrar();
+    }
+    
+    function activarUsuarios(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> encuestaDAO -> activarUsuarios());
+        $this -> conexion -> cerrar();
+    }
+    
     function cantidadPreguntas(){
         $this -> conexion -> abrir();
         $this -> conexion -> ejecutar($this -> encuestaDAO -> cantidadPreguntas());

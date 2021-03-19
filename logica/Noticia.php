@@ -1,5 +1,5 @@
 <?php
-require 'persistencia/CategoriaDAO.php';
+require 'persistencia/NoticiaDAO.php.php';
 require_once 'persistencia/Conexion.php';
 
 class Categoria {
