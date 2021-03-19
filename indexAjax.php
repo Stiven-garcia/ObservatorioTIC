@@ -10,6 +10,7 @@ require 'logica/Pregunta.php';
 require 'logica/Opcion.php';
 require 'logica/Realizar.php';
 require 'logica/Variable.php';
+require 'logica/Herramienta.php';
 $pid = base64_decode($_GET["pid"]);
 include $pid;
 ?>

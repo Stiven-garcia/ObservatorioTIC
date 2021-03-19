@@ -101,8 +101,8 @@ if($_SESSION['id'] != ""){
           <li>
           <a style="background-color:#7317DA; color:#FFFFFF">Herramientas</a>
           <ul>
-        <li><a>Agregar Herramientas</a></li>
-        <li><a>Consultar Herrramientas</a></li>
+        <li><a href="index.php?pid=<?php echo base64_encode("presentacion/administrador/crearHerramientas.php")."&crear=true"?>">Agregar Herramientas</a></li>
+        <li><a href="index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarHerramientas.php")?>">Consultar Herrramientas</a></li>
          </ul>
         </li>
           </ul>

@@ -10,6 +10,7 @@ require 'logica/Pregunta.php';
 require 'logica/Opcion.php';
 require 'logica/Realizar.php';
 require 'logica/Variable.php';
+require 'logica/Herramienta.php';
 ?>
 
 <html lang="es" style="height: 100%;">

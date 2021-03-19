@@ -1,13 +1,13 @@
 <?php
-$herramienta = new Herramienta();
-$herramientas = $herramienta -> consultarTodos();
-include 'presentacion/home/menu.php';
+if(isset($_GET["idHerramienta"])){
+    $herramienta = new Herramienta($_GET["idHerramienta"]);
+    $herramienta -> eliminar();
+}
+$herramienta1 = new Herramienta();
+$herramientas = $herramienta1 -> consultarTodos();
 ?>
-<div class="columns is-centered" style="margin-top: 10px">
-  <div class="column is-four-fifths">
-		<div class="card" id="resultadosHerramienta" >
-			<header class="card-header" style="background-color:#7317DA">
-				<p class="card-header-title has-text-white is-centered"  style="font-size:20px "><?php echo utf8_encode("Herramientas")?></p>
+<header class="card-header" style="background-color:#7317DA">
+<p class="card-header-title has-text-white is-centered"  style="font-size:20px "><?php echo utf8_encode("Herramientas")?></p>
 			</header>
 				<div class="card-content">
 					<div class="content">
@@ -26,12 +26,12 @@ include 'presentacion/home/menu.php';
 						foreach ($herramientas as $h) {
 						    echo "<tr>";
                             echo "<td>" . $h -> getNombre() . "</td>";
-                            echo "<td>" . $h -> limitar_cadena( $h->getDescripcion(), 60) . "</td>";
-                            echo "<td>" . (($h -> getLogo()!="")?"<img src='" . $h -> getLogo() . "'  height='20px'>":"") . "</td>";
-                            echo "<td>" . (($h -> getLink()!="")?"'" . $h -> limitar_cadena( $h->getLink(), 50) . "'":"") . "</td>";
+                            echo "<td>" . $h -> limitar_cadena( $h->getDescripcion(), 58) . "</td>";
+                            echo "<td>" . (($h -> getLogo()!="")?"<img src='" . $h -> getLogo() . "' height='50px'>":"") . "</td>";
+                            echo "<td>" . (($h -> getLink()!="")?"'" . $h -> limitar_cadena( $h->getDescripcion(), 58) . "'":"") . "</td>";
                             echo "<td>" . "
                                    <a id='ver".$h -> getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
-                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearHerramientas.php") . "&modificar=true&idHerramienta=" . $h -> getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
+                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearHerramienta.php") . "&modificar=true&idHerramienta=" . $h -> getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
                                    <a id='Eliminar".$h -> getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
                                  </td>";
                            echo "</tr>";                
@@ -42,10 +42,6 @@ include 'presentacion/home/menu.php';
 					</table>
 					</div>
 				</div>
-		</div>
-	</div>	
-</div>
-					
 <div class="modal" id="myModal">
   <div class="modal-background"></div>
   <div class="modal-card">
