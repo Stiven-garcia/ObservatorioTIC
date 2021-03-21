@@ -10,7 +10,11 @@ require 'logica/Pregunta.php';
 require 'logica/Opcion.php';
 require 'logica/Realizar.php';
 require 'logica/Variable.php';
+<<<<<<< HEAD
+require 'logica/Noticia.php';
+=======
 require 'logica/Herramienta.php';
+>>>>>>> Agregarfuncionalidadesdeeliminar
 ?>
 
 <html lang="es" style="height: 100%;">
@@ -37,6 +41,7 @@ require 'logica/Herramienta.php';
   margin: 0;
 }
     </style>
+   
 
 
 </head>

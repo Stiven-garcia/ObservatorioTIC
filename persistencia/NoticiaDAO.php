@@ -6,46 +6,59 @@ class NoticiaDAO {
     private $valor;
     private $rol;
     
-    function NoticiaDAO ($id, $nombre, $descripcion, $valor, $rol){
+    function NoticiaDAO ($id, $nombre, $descripcion, $fechaApertura, $fechaCierre){
         $this -> id = $id;
         $this -> nombre = $nombre;
         $this -> descripcion = $descripcion;
-        $this -> valor = $valor;
-        $this -> rol = $rol;
+        $this -> fechaApertura = $fechaApertura;
+        $this -> fechaCierre = $fechaCierre;
     }
     
     
     function consultar(){
-        return "select idCategoria, nombre, descripcion, valor, rol_idRol from categoria
-                where idCategoria = '" . $this -> id . "'";
+        return "select idNoticiasyEventos, nombre, descripcion, fechaApertura, fechaCierre
+                from noticiasyeventos
+                where idNoticiasyEventos = '" . $this -> id . "'";
     }
     
-    function consultarTodos(){
-        return "select idCategoria, nombre, descripcion, valor
-                from categoria
-                where rol_idRol = ". $this -> rol ." ORDER BY nombre ASC";
+    function consultarNoticias(){
+        return "select idNoticiasyEventos, nombre, descripcion, fechaApertura, fechaCierre
+                from noticiasyeventos
+                where fechaCierre = 0000-00-00
+                ORDER BY fechaApertura DESC";
+    }
+    function consultarEventos(){
+        return "select idNoticiasyEventos, nombre, descripcion, fechaApertura, fechaCierre
+                from noticiasyeventos
+                where fechaCierre != 0000-00-00
+                ORDER BY fechaApertura DESC";
     }
     
     function registrar(){
-        return "INSERT INTO categoria (nombre, descripcion, valor, rol_idRol)
-                VALUES ('" . $this -> nombre . "', '" . $this -> descripcion . "', '" . $this -> valor . "', " . $this -> rol . ")";
+        return "INSERT INTO noticiasyeventos (nombre, descripcion, fechaApertura, fechaCierre)
+                VALUES ('" . $this -> nombre . "', '" . $this -> descripcion . "', '" . $this -> fechaApertura . "', '" . $this -> fechaCierre . "')";
     }
     
-    function existeCategoria(){
-        return "select idCategoria
-                from categoria
-                where nombre = '". $this -> nombre ."' and rol_idRol=".$this -> rol;
+    function existeNoticia(){
+        return "select idNoticiasyEventos
+                from noticiasyeventos
+                where nombre = '". $this -> nombre ."' and fechaApertura=".$this -> fechaApertura;
     }
     
     function eliminar(){
-        return "DELETE FROM categoria
-                WHERE idCategoria=". $this -> id;
+        return "DELETE FROM noticiasyeventos
+                WHERE idNoticiasyEventos=". $this -> id;
     }
     
-    function modificar(){
-        return "UPDATE categoria
-                SET nombre='". $this -> nombre . "', descripcion='". $this ->descripcion ."', valor=". $this -> valor .", rol_idRol=". $this -> rol."
-                WHERE idCategoria=". $this -> id;
+    function modificarNoticia(){
+        return "UPDATE noticiasyeventos
+                SET nombre='". $this -> nombre . "', descripcion='". $this ->descripcion ."'  
+                WHERE idNoticiasyEventos=". $this -> id;
+    }
+    function modificarEvento(){
+        return "UPDATE noticiasyeventos
+                SET nombre='". $this -> nombre . "', descripcion='". $this ->descripcion ."', fechaCierre='". $this -> fechaCierre ."'
+                WHERE idNoticiasyEventos=". $this -> id;
     }
     
 

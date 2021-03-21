@@ -1,84 +1,98 @@
 <?php
-require 'persistencia/NoticiaDAO.php.php';
+require 'persistencia/NoticiaDAO.php';
 require_once 'persistencia/Conexion.php';
 
-class Categoria {
+class Noticia {
     private $id;
     private $nombre;
     private $descripcion;
-    private $valor;
-    private $rol;
-    private $categoriaDAO;
+    private $fechaApertura;
+    private $fechaCierre;
+    private $noticiaDAO;
     private $conexion;
     
-    function getRol(){
-        return $this-> rol;
-    }
-    
-    function setRol($rol){
-        $this-> rol = $rol;
-    }
-    
     function getId(){
-        return $this-> id;
+        return $this->id;
     }
-    
-    function setId($id){
-        $this-> id = $id;
-    }
-    
+
     function getNombre(){
-        return $this-> nombre;
+        return $this->nombre;
     }
-    
-    function setNombre($nombre){
-        $this-> nombre = $nombre;
-    }
-    
+
     function getDescripcion(){
-        return $this-> descripcion;
+        return $this->descripcion;
     }
-    
+
+    function getFechaApertura(){
+        return $this->fechaApertura;
+    }
+
+    function getFechaCierre(){
+        return $this->fechaCierre;
+    }
+
+    function setId($id){
+        $this->id = $id;
+    }
+
+    function setNombre($nombre){
+        $this->nombre = $nombre;
+    }
+
     function setDescripcion($descripcion){
-        $this-> descripcion = $descripcion;
+        $this->descripcion = $descripcion;
     }
-    
-    function getValor(){
-        return $this-> valor;
+
+    function setFechaApertura($fechaApertura){
+        $this->fechaApertura = $fechaApertura;
     }
-    
-    function setValor($valor){
-        $this-> valor = $valor;
+
+    function setFechaCierre($fechaCierre){
+        $this->fechaCierre = $fechaCierre;
     }
-    function Categoria($id="", $nombre="", $descripcion="", $valor="", $rol=""){
+
+    function Noticia($id="", $nombre="", $descripcion="", $fechaApertura="", $fechaCierre=""){
         $this -> id = $id;
         $this -> nombre = $nombre;
         $this -> descripcion = $descripcion;
-        $this -> valor = $valor;
-        $this -> rol = $rol;
+        $this -> fechaApertura = $fechaApertura;
+        $this -> fechaCierre = $fechaCierre;
         $this -> conexion = new Conexion();
-        $this -> categoriaDAO = new CategoriaDAO($id, $nombre, $descripcion, $valor, $rol);
+        $this -> noticiaDAO = new NoticiaDAO($id, $nombre, $descripcion, $fechaApertura, $fechaCierre);
     }
     
     function consultar(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> consultar());
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> consultar());
         $resultado = $this -> conexion -> extraer();
         $this -> id = $resultado[0];
         $this -> nombre = $resultado[1];
         $this -> descripcion = $resultado[2];
-        $this -> valor = $resultado[3];
-        $this -> rol = $resultado[4];
+        $this -> fechaApertura = $resultado[3];
+        $this -> fechaCierre = $resultado[4];
         $this -> conexion -> cerrar();
     }
     
-    function consultarTodos(){
+    function consultarNoticias(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> consultarTodos());
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> consultarNoticias());
         $resultados = array();
         $i = 0;
         while (($registro = $this -> conexion -> extraer()) != null) {
-            $resultados[$i] = new Categoria($registro[0],$registro[1],$registro[2],$registro[3]);
+            $resultados[$i] = new Noticia($registro[0],$registro[1],$registro[2],$registro[3],$registro[4]);
+            $i++;
+        }
+        $this -> conexion -> cerrar();
+        return $resultados;
+    }
+    
+    function consultarEventos(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> consultarEventos());
+        $resultados = array();
+        $i = 0;
+        while (($registro = $this -> conexion -> extraer()) != null) {
+            $resultados[$i] = new Noticia($registro[0],$registro[1],$registro[2],$registro[3],$registro[4]);
             $i++;
         }
         $this -> conexion -> cerrar();
@@ -87,13 +101,13 @@ class Categoria {
     
     function registrar(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> registrar());
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> registrar());
         $this -> conexion -> cerrar();
     }
     
-    function existeCategoria(){
+    function existeNoticia(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> existeCategoria());
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> existeNoticia());
         if($this -> conexion -> numFilas() == 0){
             $this -> conexion -> cerrar();
             return false;
@@ -105,61 +119,32 @@ class Categoria {
     
     function eliminar(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarOpciones());
-        $this -> conexion -> cerrar();
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarPreguntas());
-        $this -> conexion -> cerrar();
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarVariables());
-        $this -> conexion -> cerrar();
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarIndicadores());
-        $this -> conexion -> cerrar();
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> eliminarCategoria());
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> eliminar());
         $this -> conexion -> cerrar();
     }
     
-    function cantidadIndicadores(){
+    function modificarNoticia(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> cantidadIndicadores());
-        $resultado = $this -> conexion -> extraer();
-        $this -> conexion -> cerrar();
-        return $resultado[0];
-    }
-    
-    function modificar(){
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> modificar());
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> modificarNoticia());
         $this -> conexion -> cerrar();
     }
     
-    function limitar_cadena($limite){
+    function modificarEvento(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> modificarEvento());
+        $this -> conexion -> cerrar();
+    }
+    
+    function limitar_cadena($cadena, $limite){
         // Si la longitud es mayor que el límite...
-        if(strlen($this -> descripcion) > $limite){
+        if(strlen($cadena) > $limite){
             // Entonces corta la cadena y ponle el sufijo
-            return substr($this -> descripcion, 0, $limite) . "...";
+            return substr($cadena, 0, $limite) . "...";
         }
         
         // Si no, entonces devuelve la cadena normal
-        return $this -> descripcion;
+        return $cadena;
     }
-    
-    function completa() {
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> completa());
-        $resultado = $this -> conexion -> extraer();
-        $this -> conexion -> cerrar();
-        return $resultado[0];
-    }
-    
-    function valorCategoria(){
-        $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> categoriaDAO -> valorCategoria());
-        $resultado = $this -> conexion -> extraer();
-        $this -> conexion -> cerrar();
-        return $resultado[0];
-    }
+ 
 }
 ?>
