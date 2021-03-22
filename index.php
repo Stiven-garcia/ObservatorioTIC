@@ -40,6 +40,12 @@ require 'logica/Curso.php';
     * {
   margin: 0;
 }
+  .container{
+  overflow: hidden
+  }
+  .slider-container{
+  border:none
+  }
     </style>
    
 
