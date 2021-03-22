@@ -4,8 +4,6 @@ $nombre = "";
 $descripcion="";
 $logo = "";
 $link="";
-$error=0;
-$indicador= null;
 if(isset($_GET["crear"])){
     $tipo = 1;
 }else{
@@ -75,7 +73,7 @@ include 'presentacion/home/menu.php';
 						<div class="field">
 							<label class="label"><?php echo utf8_encode("Descripción")?></label>
 							<div class="control has-icons-right">
-								<textarea id="descripcion" name="descripcion" class="textarea <?php if($errorHerramienta==2){ echo "is-danger"; }?>" required="required" placeholder="Ingrese la <?php echo utf8_encode("sescripción")?>< de la herramienta"><?php echo $descripcion; ?></textarea>
+								<textarea id="descripcion" name="descripcion" class="textarea <?php if($errorHerramienta==2){ echo "is-danger"; }?>" required="required" placeholder="Ingrese la <?php echo utf8_encode("descripción")?> de la herramienta"><?php echo $descripcion; ?></textarea>
 							     <span class='icon is-small is-right' id="iconoPregunta"><?php if($errorHerramienta==2){ echo "<i class='fas fa-exclamation-triangle'></i>"; }?></span>
 							</div>
 							<div id="mensajePregunta"> <?php if($errorHerramienta==2){ echo "<p class='help is-danger'>La ". utf8_encode("herramienta") ." ya se encuentra en el sistema</p>"; }?></div>
@@ -105,7 +103,7 @@ include 'presentacion/home/menu.php';
 								<button  type="submit" name="enviar" class="button" style="background-color:#7317DA; color:#FFFFFF"><?php echo (($tipo==1)? "Crear":"Modificar")?></button>
 							</div>
 							<div class="control">
-								<a class="button is-light" href="index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarVariables.php"). "&idIndicador=".$indicador -> getIdIndicador()?>" >Cancelar</a>
+								<a class="button is-light" href="index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarHerramientas.php")?>" >Cancelar</a>
 							</div>
 						</div>
 						</form>

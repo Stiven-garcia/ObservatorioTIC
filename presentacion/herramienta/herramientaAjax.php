@@ -26,9 +26,9 @@ $herramientas = $herramienta1 -> consultarTodos();
 						foreach ($herramientas as $h) {
 						    echo "<tr>";
                             echo "<td>" . $h -> getNombre() . "</td>";
-                            echo "<td>" . $h -> limitar_cadena( $h->getDescripcion(), 58) . "</td>";
-                            echo "<td>" . (($h -> getLogo()!="")?"<img src='" . $h -> getLogo() . "' height='50px'>":"") . "</td>";
-                            echo "<td>" . (($h -> getLink()!="")?"'" . $h -> limitar_cadena( $h->getDescripcion(), 58) . "'":"") . "</td>";
+                            echo "<td>" . $h -> limitar_cadena( $h->getDescripcion(), 100) . "</td>";
+                            echo "<td>" . (($h -> getLogo()!="")?"<img src='" . $h -> getLogo() . "' height='60px' width='150px'>":"") . "</td>";
+                            echo "<td>" . "<a href='". $h->getLink()."'>".(($h -> getLink()!="")?"'" . $h -> limitar_cadena( $h->getLink(), 80) . "'":"") . "</a></td>";
                             echo "<td>" . "
                                    <a id='ver".$h -> getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
                                    <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearHerramienta.php") . "&modificar=true&idHerramienta=" . $h -> getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
@@ -36,8 +36,8 @@ $herramientas = $herramienta1 -> consultarTodos();
                                  </td>";
                            echo "</tr>";                
                         }
-                           echo "<tr><td colspan='5'>" . count($herramientas) . " registros encontrados</td></tr>";?>
-                
+                           echo "<tr><td colspan='5'>" . count($herramientas) . " registros encontrados</td></tr>
+                    <tr><td colspan='5'>  <a href='index.php?pid=" . base64_encode("presentacion/administrador/crearHerramientas.php")."&crear=true'  class='fas fa-plus'>Agregar Herramienta</a> </td></tr>"?>
 						</tbody>
 					</table>
 					</div>

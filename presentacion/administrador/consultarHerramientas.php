@@ -3,6 +3,15 @@ $herramienta = new Herramienta();
 $herramientas = $herramienta -> consultarTodos();
 include 'presentacion/home/menu.php';
 ?>
+<div class="columns is-centered " style="margin-top: 10px">
+  <div class="column is-four-fifths">
+ 		<div class="columns">
+                  <div class="column is-2 is-offset-10"> 
+                  <a class="button" style="background-color:#7317DA; color:#FFFFFF"  href="<?php echo "index.php?pid=" . base64_encode("presentacion/administrador/crearHerramientas.php")."&crear=true"?>" > <?php echo utf8_encode("Agregar Herramienta")?></a>
+                  </div>
+  		</div>
+  </div>
+</div>
 <div class="columns is-centered" style="margin-top: 10px">
   <div class="column is-four-fifths">
 		<div class="card" id="resultadosHerramienta" >
@@ -26,9 +35,9 @@ include 'presentacion/home/menu.php';
 						foreach ($herramientas as $h) {
 						    echo "<tr>";
                             echo "<td>" . $h -> getNombre() . "</td>";
-                            echo "<td>" . $h -> limitar_cadena( $h->getDescripcion(), 60) . "</td>";
-                            echo "<td>" . (($h -> getLogo()!="")?"<img src='" . $h -> getLogo() . "'  height='20px'>":"") . "</td>";
-                            echo "<td>" . (($h -> getLink()!="")?"'" . $h -> limitar_cadena( $h->getLink(), 50) . "'":"") . "</td>";
+                            echo "<td>" . $h -> limitar_cadena( $h->getDescripcion(), 100) . "</td>";
+                            echo "<td>" . (($h -> getLogo()!="")?"<img src='" . $h -> getLogo() . "'  height='60px' width='150px'>":"") . "</td>";
+                            echo "<td>" . "<a href='". $h->getLink()."'>". (($h -> getLink()!="")?"'" . $h -> limitar_cadena( $h->getLink(), 80) . "'":"") ."</a></td>";
                             echo "<td>" . "
                                    <a id='ver".$h -> getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
                                    <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearHerramientas.php") . "&modificar=true&idHerramienta=" . $h -> getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
@@ -36,8 +45,8 @@ include 'presentacion/home/menu.php';
                                  </td>";
                            echo "</tr>";                
                         }
-                           echo "<tr><td colspan='5'>" . count($herramientas) . " registros encontrados</td></tr>";?>
-                
+                           echo "<tr><td colspan='5'>" . count($herramientas) . " registros encontrados</td></tr>
+                           <tr><td colspan='5'>  <a href='index.php?pid=" . base64_encode("presentacion/administrador/crearHerramientas.php")."&crear=true'  class='fas fa-plus'>Agregar Herramienta</a> </td></tr>"?>
 						</tbody>
 					</table>
 					</div>
