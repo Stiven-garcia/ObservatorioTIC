@@ -12,6 +12,7 @@ require 'logica/Realizar.php';
 require 'logica/Variable.php';
 require 'logica/Noticia.php';
 require 'logica/Herramienta.php';
+require 'logica/Curso.php';
 $pid = base64_decode($_GET["pid"]);
 include $pid;
 ?>

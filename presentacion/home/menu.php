@@ -121,8 +121,13 @@ if($_SESSION['id'] != ""){
           <li>
           <a style="background-color:#7317DA; color:#FFFFFF">Cursos</a>
           <ul>
+<<<<<<< HEAD
         <li><a href="index.php?pid=<?php echo base64_encode("presentacion/administrador/crearCursos.php")."&crear=true"?>">Agregar Cursos</a></li>
         <li><a href="index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarCursos.php")?>">Consultar Cursos</a></li>
+=======
+        <li><a>Agregar Cursos</a></li>
+          <li><a href="index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarCursos.php")?>">Consultar Cursos</a></li>
+>>>>>>> Agregarfuncionalidadesdeeliminar
          </ul>
         </li>
           </ul>       

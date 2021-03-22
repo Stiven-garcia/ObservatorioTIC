@@ -12,6 +12,7 @@ require 'logica/Realizar.php';
 require 'logica/Variable.php';
 require 'logica/Noticia.php';
 require 'logica/Herramienta.php';
+require 'logica/Curso.php';
 ?>
 
 <html lang="es" style="height: 100%;">
@@ -19,15 +20,15 @@ require 'logica/Herramienta.php';
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/chartkick/2.3.0/chartkick.min.js"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
         $(function () {
         	  $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Observatorio TIC UDFJCT</title>
  <style type="text/css" media="all">
     .animacion:hover {
@@ -71,7 +72,7 @@ require 'logica/Herramienta.php';
      <a href="mailto:saimbacuang@correo.udistrital.edu.co?Subject=Contacto%20observatorio%20TIC">saimbacuang@correo.udistrital.edu.co</a>
     
     </p>
-   <p> <?php echo utf8_encode("Copyright © Todos los derechos reservados")?></p>
+   <p> <?php echo utf8_encode("Copyright ï¿½ Todos los derechos reservados")?></p>
   </div>
 </footer>
 </body>
