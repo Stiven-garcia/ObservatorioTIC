@@ -10,11 +10,8 @@ require 'logica/Pregunta.php';
 require 'logica/Opcion.php';
 require 'logica/Realizar.php';
 require 'logica/Variable.php';
-<<<<<<< HEAD
 require 'logica/Noticia.php';
-=======
 require 'logica/Herramienta.php';
->>>>>>> Agregarfuncionalidadesdeeliminar
 $pid = base64_decode($_GET["pid"]);
 include $pid;
 ?>

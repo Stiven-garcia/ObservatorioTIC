@@ -72,6 +72,18 @@ class Noticia {
         $this -> fechaCierre = $resultado[4];
         $this -> conexion -> cerrar();
     }
+    function consultarTodos(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> noticiaDAO -> consultarTodos());
+        $resultados = array();
+        $i = 0;
+        while (($registro = $this -> conexion -> extraer()) != null) {
+            $resultados[$i] = new Noticia($registro[0],$registro[1],$registro[2],$registro[3],$registro[4]);
+            $i++;
+        }
+        $this -> conexion -> cerrar();
+        return $resultados;
+    }
     
     function consultarNoticias(){
         $this -> conexion -> abrir();

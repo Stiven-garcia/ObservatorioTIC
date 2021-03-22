@@ -20,6 +20,11 @@ class NoticiaDAO {
                 from noticiasyeventos
                 where idNoticiasyEventos = '" . $this -> id . "'";
     }
+    function consultarTodos(){
+        return "select idNoticiasyEventos, nombre, descripcion, fechaApertura, fechaCierre
+                from noticiasyeventos
+                ORDER BY fechaApertura DESC";
+    }
     
     function consultarNoticias(){
         return "select idNoticiasyEventos, nombre, descripcion, fechaApertura, fechaCierre
