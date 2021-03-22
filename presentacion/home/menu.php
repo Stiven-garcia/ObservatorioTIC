@@ -121,14 +121,14 @@ if($_SESSION['id'] != ""){
           <li>
           <a style="background-color:#7317DA; color:#FFFFFF">Cursos</a>
           <ul>
-        <li><a>Agregar Cursos</a></li>
-        <li><a>Consultar Cursos</a></li>
+        <li><a href="index.php?pid=<?php echo base64_encode("presentacion/administrador/crearCursos.php")."&crear=true"?>">Agregar Cursos</a></li>
+        <li><a href="index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarCursos.php")?>">Consultar Cursos</a></li>
          </ul>
         </li>
           </ul>       
           </div>
      <?php }else{ ?> 
-          <a class="navbar-item">
+          <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/herramienta/verHerramienta.php")."&nos=true"?>">
             Herramientas
           </a>
           <a class="navbar-item">
