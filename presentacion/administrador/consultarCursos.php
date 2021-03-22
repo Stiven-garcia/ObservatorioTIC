@@ -38,7 +38,7 @@ include 'presentacion/home/menu.php';
 						    echo "<td>" . "<a href='". $c->getLink()."'>". (($c -> getLink()!="")?"'" . $c -> limitar_cadena( $c->getLink(), 80) . "'":"") ."</a></td>";
                             echo "<td>" . "
                                    <a id='ver".$c -> getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>
-                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearCurso.php") . "&modificar=true&idCurso=" . $c -> getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
+                                   <a class='fas fa-pencil-ruler' href='index.php?pid=" . base64_encode("presentacion/administrador/crearCursos.php") . "&modificar=true&idCurso=" . $c -> getId() . "' data-toggle='tooltip' data-placement='left' title='Actualizar'> </a>
                                    <a id='Eliminar".$c -> getId()."' href='#' class='fas fa-times' data-toggle='tooltip' data-placement='left' title='Eliminar'> </a>
                                  </td>";
                            echo "</tr>";                

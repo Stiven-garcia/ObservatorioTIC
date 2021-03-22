@@ -16,16 +16,16 @@ if($cursos == null){
 }else{
     foreach ($cursos as $c) { ?>
 	    <div class="column  is-narrow">
-	    <div class="animacion"><div class="card" style="width: 380px">
+	    <div class="animacion"><div class="card" style="width: 500px">
 	    <a href="<?php echo $c -> getLink()?>" style="color:hsl(0, 0%, 21%)">
-	    <div class="card-image">
-	    <figure class="image is-16by9">
-	    <img src="<?php echo $h -> getLogo()?>" alt="Placeholder image"></figure></div>
 	    <div class="card-content">
 	    <div class="media">
 	    <div class="media-content">
 	    <p class="title is-4"><?php echo $c -> getNombre()?></p></div></div>
-	    <div class="content"><?php echo $c -> getDescripcion()?><br>
+	    <div class="content"><?php echo $c -> getDescripcion()?><br><br>
+	    <strong>Autor: </strong><?php echo $c ->getAutor()?>
+	   <?php if($c -> getFechaApertura() !="0000-00-00"){ ?><br><time datetime="2016-1-1"><strong>Fecha de Inicio: </strong><?php $c -> getFechaApertura(); ?></time>	<?php } ?>
+		<?php if($c -> getFechaCierre() !="0000-00-00"){ ?><br><time datetime="2016-1-1"><strong>Fecha de Cierre: </strong><?php $c -> getFechaCierre(); ?></time> <?php } ?>
 	    
 	   </div></div></a></div></div></div>
 <?php 	    

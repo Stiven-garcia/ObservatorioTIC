@@ -7,10 +7,24 @@ class Curso {
     private $nombre;
     private $descripcion;
     private $link;
+    private $fechaApertura;
+    private $fechaCierre;
+    private $autor;
     private $CursoDAO;
     private $conexion;
     
+    function getAutor(){
+        return $this->autor;
+    }
     
+    function getFechaApertura(){
+        return $this->fechaApertura;
+    }
+
+    function getFechaCierre(){
+        return $this->fechaCierre;
+    }
+
     function getId()
     {
         return $this->id;
@@ -32,13 +46,16 @@ class Curso {
         return $this->link;
     }
     
-    function Curso($id="", $nombre="", $descripcion="", $link=""){
+    function Curso($id="", $nombre="", $descripcion="", $link="", $fechaApertura="", $fechaCierre="", $autor=""){
         $this -> id = $id;
         $this -> nombre = $nombre;
         $this -> descripcion = $descripcion;
         $this -> link = $link;
+        $this -> fechaApertura = $fechaApertura;
+        $this -> fechaCierre = $fechaCierre;
+        $this -> autor = $autor;
         $this -> conexion = new Conexion();
-        $this -> CursoDAO = new CursoDAO($id, $nombre, $descripcion, $link);
+        $this -> CursoDAO = new CursoDAO($id, $nombre, $descripcion, $link,  $fechaApertura, $fechaCierre, $autor);
     }
     
     function consultarTodos(){
@@ -47,11 +64,23 @@ class Curso {
         $resultados = array();
         $i=0;
         while(($registro = $this -> conexion -> extraer()) != null){
-            $resultados[$i] = new Curso($registro[0], $registro[1], $registro[2], $registro[3]);
+            $resultados[$i] = new Curso($registro[0], $registro[1], $registro[2], $registro[3], $registro[5], $registro[5], $registro[6]);
             $i++;
         }
         $this -> conexion -> cerrar();
         return $resultados;
+    }
+    
+    function existeCurso(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> CursoDAO -> existeCurso());
+        if($this -> conexion -> numFilas() == 0){
+            $this -> conexion -> cerrar();
+            return false;
+        } else {
+            $this -> conexion -> cerrar();
+            return true;
+        }
     }
     
     function consultar(){
@@ -62,6 +91,9 @@ class Curso {
         $this -> nombre = $resultado[1];
         $this -> descripcion = $resultado[2];
         $this -> link = $resultado[3];
+        $this -> fechaApertura = $resultado[4];
+        $this -> fechaCierre = $resultado[5];
+        $this -> autor = $resultado[6];
         $this -> conexion -> cerrar();
     }
     

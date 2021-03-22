@@ -3,7 +3,7 @@ if(isset($_GET["idCurso"])){
     $curso = new Curso($_GET["idCurso"]);
     $curso -> eliminar();
 }
-$curso1 = new Herramienta();
+$curso1 = new Curso();
 $cursos = $curso1 -> consultarTodos();
 ?>
 <header class="card-header" style="background-color:#7317DA">
@@ -15,7 +15,7 @@ $cursos = $curso1 -> consultarTodos();
 						<thead>
 							<tr>
 								<th scope="col">Nombre</th>
-								<th scope="col"><?php echo utf8_encode("Descripción")?></th>								<th scope="col">logo</th>
+								<th scope="col"><?php echo utf8_encode("Descripción")?></th>								
 								<th scope="col">link</th>
 								<th scope="col">Servicios</th>
 							</tr>
@@ -25,7 +25,7 @@ $cursos = $curso1 -> consultarTodos();
 						foreach ($cursos as $c) {
 						    echo "<tr>";
 						    echo "<td>" . $c -> getNombre() . "</td>";
-						    echo "<td>" . $c -> limitar_cadena( $c->getDescripcion(), 100) . "</td>";                            echo "<td>" . (($c -> getLogo()!="")?"<img src='" . $c -> getLogo() . "'  height='60px' width='150px'>":"") . "</td>";
+						    echo "<td>" . $c -> limitar_cadena( $c->getDescripcion(), 100) . "</td>";                           
 						    echo "<td>" . "<a href='". $c->getLink()."'>". (($c -> getLink()!="")?"'" . $c -> limitar_cadena( $c->getLink(), 80) . "'":"") ."</a></td>";
                             echo "<td>" . "
                                    <a id='ver".$c -> getId()."' class='fas fa-eye' data-toggle='tooltip' data-placement='left' title='Ver Detalles'> </a>

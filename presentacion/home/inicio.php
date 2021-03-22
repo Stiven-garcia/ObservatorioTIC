@@ -188,3 +188,43 @@
 		</div>
 	</div>
 </section>
+<section class="section">
+			<div class="container">
+				<!-- Start Carousel -->
+				<div id="carousel-demo" class="carousel">
+					<div class="item-1">
+						<p>contenido 1</p>
+					</div>
+					<div class="item-2">
+						<p>contenido 1</p>
+					</div>
+					<div class="item-3">
+						<p>contenido 1</p>
+					</div>
+					<div class="item-4">
+						<p>contenido 1</p>
+					</div>
+					<div class="item-5">
+						<p>contenido 1</p>
+					</div>
+					<div class="item-6">
+						<p>contenido 1</p>
+					</div>
+					<div class="item-7">
+						<p>contenido 1</p>
+					</div>
+					<div class="item-8">
+						<p>contenido 1</p>
+					</div>
+				</div>
+				<!-- End Carousel -->
+			</div>
+		</section>
+<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
+		<script>
+		bulmaCarousel.attach('#carousel-demo', {
+			slidesToScroll: 1,
+			  slidesToShow: 3,
+			  infinite: true,
+		});
+		</script>

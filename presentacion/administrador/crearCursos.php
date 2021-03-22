@@ -5,11 +5,12 @@ $descripcion="";
 $link="";
 $fechaApertura = "";
 $fechaCierre = "";
+$autor ="";
 if(isset($_GET["crear"])){
     $tipo = 1;
 }else{
     if(isset($_GET["modificar"])){
-        $id = $_GET["idHerramienta"];
+        $id = $_GET["idCurso"];
         $curso = new Curso($id);
         $curso -> consultar();
         $nombre = $curso -> getNombre();
@@ -17,6 +18,7 @@ if(isset($_GET["crear"])){
         $link = $curso -> getLink();
         $fechaApertura = $curso -> getFechaApertura();
         $fechaCierre = $curso -> getFechaCierre();
+        $autor = $curso -> getAutor();
         $tipo = 2;
     }
 }
@@ -24,11 +26,18 @@ if(isset($_GET["crear"])){
 if(isset($_POST["enviar"])){
     $nombre = $_POST["nombre"];
     $descripcion = $_POST["descripcion"];
-    $fechaApertura = $_POST["fechaApertura"];
-    $fechaCierre = $_POST["fechaCierre"];
     $link  = $_POST["link"];
+    if($_POST["fechaCierre"]!=""){
+        $fecha = new DateTime($_POST["fechaCierre"]);
+        $fechaCierre = $fecha->format('Y-m-d');
+    }
+    if($_POST["fechaApertura"]!=""){
+    $fecha2 = new DateTime($_POST["fechaApertura"]);
+    $fechaApertura = $fecha2->format('Y-m-d');
+    }
+    $autor = $_POST["autor"];
     if($tipo==1){
-        $curso = new Curso("", $nombre, $descripcion, $link, $fechaApertura, $fechaCierre );
+        $curso = new Curso("", $nombre, $descripcion, $link, $fechaApertura, $fechaCierre, $autor );
         if(!$curso -> existeCurso()){
             $curso -> registrar();
             $errorCurso = 1;
@@ -37,7 +46,7 @@ if(isset($_POST["enviar"])){
         }
     }else{
         if($tipo==2){
-            $curso = new Curso($id, $nombre, $descripcion, $link, $fechaApertura, $fechaCierre);
+            $curso = new Curso($id, $nombre, $descripcion, $link, $fechaApertura, $fechaCierre, $autor);
             $curso -> actualizar();
             $errorCurso = 3;
         }
@@ -53,7 +62,7 @@ include 'presentacion/home/menu.php';
 			</header>
 				<div class="card-content">
 					<div class="content">
-					<form action=<?php echo "index.php?pid=" . base64_encode("presentacion/administrador/crearHerramientas.php"). (($tipo==1)? "&crear=true" : "&modificar=true&idHerramienta=".$id) ?> method="post">
+					<form action=<?php echo "index.php?pid=" . base64_encode("presentacion/administrador/crearCursos.php"). (($tipo==1)? "&crear=true" : "&modificar=true&idCurso=".$id) ?> method="post">
 						<?php if($errorCurso==1){
 						    echo utf8_encode('<div class="notification is-success">
                                El curso ha sido credo con exito
@@ -82,6 +91,13 @@ include 'presentacion/home/menu.php';
 							<div class="control has-icons-right">
 								<textarea id="descripcion" name="descripcion" class="textarea" required="required" placeholder="Ingrese la <?php echo utf8_encode("descripción")?> del curso"><?php echo $descripcion; ?></textarea>
 							     <span class='icon is-small is-right' id="iconoPregunta"></span>
+							</div>
+						</div>
+						<div class="field" id="cajaNombre">
+							<label class="label">Autor</label>
+							<div class="control has-icons-right">
+								<input id="autor" name="autor" class="input" type="text" required="required" placeholder="Nombre del autor del curso" value="<?php echo $autor; ?>">
+							     <span class='icon is-small is-right' id="iconoNombre"> </span>
 							</div>
 						</div>
 						

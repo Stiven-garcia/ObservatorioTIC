@@ -4,8 +4,6 @@ $nombre = "";
 $descripcion="";
 $logo = "";
 $link="";
-$error=0;
-$indicador= null;
 if(isset($_GET["crear"])){
     $tipo = 1;
 }else{
