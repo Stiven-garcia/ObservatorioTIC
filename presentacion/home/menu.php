@@ -81,9 +81,21 @@ if($_SESSION['id'] != ""){
         </div>
       </div>
        <?php }else{ ?>
-	  <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/noticia/verNoticia.php")?>&nos=true">
-        Noticias y Eventos
-      </a>
+       <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Noticias y Eventos
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/noticia/verNoticia.php")?>&nos=true">
+        Noticias Relevantes
+          </a>
+          <a class="navbar-item" href="index.php?pid=<?php echo base64_encode("presentacion/noticia/verNoticiaUDFJ.php")?>&nos=true">
+        Noticias y Eventos UDFJC
+          </a>
+        </div>
+      </div>
+	  
       <?php } ?>
       
      
