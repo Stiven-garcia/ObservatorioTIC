@@ -122,7 +122,7 @@ if($_SESSION['id'] != ""){
           <a style="background-color:#7317DA; color:#FFFFFF">Cursos</a>
           <ul>
         <li><a>Agregar Cursos</a></li>
-        <li><a>Consultar Cursos</a></li>
+          <li><a href="index.php?pid=<?php echo base64_encode("presentacion/administrador/consultarCursos.php")?>">Consultar Cursos</a></li>
          </ul>
         </li>
           </ul>       
