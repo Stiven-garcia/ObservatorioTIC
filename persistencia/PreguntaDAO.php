@@ -58,7 +58,7 @@ class PreguntaDAO {
     function existePregunta(){
         return "select idPregunta
                 from pregunta, 
-                where pregunta = ". $this -> pregunta;
+                where pregunta = '". $this -> pregunta ."' and Encuesta=".$this -> encuesta;
     }
     
     function cantidadOpciones() {

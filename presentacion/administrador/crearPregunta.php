@@ -92,7 +92,7 @@ include 'presentacion/home/menu.php';
 								<textarea id="pregunta" name="pregunta" class="textarea <?php if($errorPregunta==2){ echo "is-danger"; }?>" required="required" placeholder="Ingrese la pregunta"><?php echo $pregunta; ?></textarea>
 							     <span class='icon is-small is-right' id="iconoPregunta"><?php if($errorPregunta==2){ echo "<i class='fas fa-exclamation-triangle'></i>"; }?></span>
 							</div>
-							<div id="mensajePregunta"> <?php if($errorPregunta==2){ echo "<p class='help is-danger'>La ". utf8_encode("Pregunta") ." ya se encuentra en el sistema</p>"; }?></div>
+							<div id="mensajePregunta"> <?php if($errorPregunta==2){ echo "<p class='help is-danger'>La ". utf8_encode("Pregunta") ." ya se encuentra en la encuesta</p>"; }?></div>
 						</div>
 						
                     <?php if($tipo ==1){?>

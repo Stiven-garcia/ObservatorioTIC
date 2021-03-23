@@ -88,7 +88,7 @@ include 'presentacion/home/menu.php';
 								<textarea id="descripcion" name="descripcion" class="textarea <?php if($errorOpcion==2){ echo "is-danger"; }?>" required="required" placeholder="Ingrese la <?php echo utf8_encode("opción")?>"><?php echo $descripcion; ?></textarea>
 							     <span class='icon is-small is-right' id="iconoDescripcion"><?php if($errorOpcion==2){ echo "<i class='fas fa-exclamation-triangle'></i>"; }?></span>
 							</div>
-							<div id="mensajeDescripcion"> <?php if($errorOpcion==2){ echo "<p class='help is-danger'>La ". utf8_encode("Opción") ." ya se encuentra en el sistema</p>"; }?></div>
+							<div id="mensajeDescripcion"> <?php if($errorOpcion==2){ echo "<p class='help is-danger'>La ". utf8_encode("Opción") ." ya se encuentra en la pregunta</p>"; }?></div>
 						</div>
 							
 					<div class="field">

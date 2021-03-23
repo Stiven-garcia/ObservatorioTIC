@@ -32,7 +32,7 @@ class OpcionDAO {
     function existeOpcion(){
         return "select idOpcion
                 from opcion
-                where descripcion = '". $this -> descripcion ."'";
+                where descripcion = '". $this -> descripcion ."' and Pregunta_idPregunta=". $this -> pregunta  ;
     }
     
     function eliminar(){
