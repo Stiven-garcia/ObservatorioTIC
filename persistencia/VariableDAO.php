@@ -33,14 +33,16 @@ class VariableDAO {
     function actualizar(){
         return "update variable set
                 nombre = '" . $this -> nombre . "',
-                valor ='" . $this -> valor . "'
+                valor =" . $this -> valor . "
                 where idVariable=" . $this -> id;
     }
     
     function existeVariable(){
         return "select idVariable
                 from variable
-                where nombre = '". $this -> nombre ."'";
+                where nombre = '". $this -> nombre ."'
+                AND variable.indicador = ". $this ->indicador."
+";
     }
     
     function eliminar(){

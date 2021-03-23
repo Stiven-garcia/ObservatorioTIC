@@ -41,7 +41,7 @@ if(isset($_POST["enviar"])){
         }
     }else{
         if($tipo==2){
-            $variableE = new Variable($id, $nombre,"", $valor);
+            $variableE = new Variable($id, $nombre,$valor ,  $indicador -> getIdIndicador());
             $resultados = $variableE ->verificarValorM();
             $suma = $resultados[0]+$valor;
             if($suma<=$resultados[1]){
@@ -67,12 +67,12 @@ include 'presentacion/home/menu.php';
 					<form action=<?php echo "index.php?pid=" . base64_encode("presentacion/administrador/crearVariable.php"). (($tipo==1)? "&crear=true&idIndicador=". $indicador -> getIdIndicador()."" : "&modificar=true&idVariable=".$id) ?> method="post">
 						<?php if($errorVariable==1){
 						    echo utf8_encode('<div class="notification is-success">
-                               La variable ha sido creda con exito
+                               La variable <strong>'. $variableE -> getNombre() .'</strong>  ha sido creda con exito
                                 </div>');
 						}?>
 						<?php if($errorVariable==3){
 						    echo utf8_encode('<div class="notification is-success">
-                               La variable ha sido modificada con exito
+                               La variable <strong>'. $variableE -> getNombre() .'</strong>  ha sido modificada con exito
                                 </div>');
 						}?>
 						<?php if($errorVariable==4){

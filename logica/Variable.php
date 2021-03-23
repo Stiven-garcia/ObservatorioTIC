@@ -121,7 +121,6 @@ class Variable{
     
     function verificarValor(){
         $this -> conexion -> abrir();
-        echo 
         $this -> conexion -> ejecutar($this -> variableDAO -> verificarValor());
         $resultados = array();
         $resultado = $this -> conexion -> extraer();

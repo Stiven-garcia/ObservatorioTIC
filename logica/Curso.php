@@ -64,7 +64,7 @@ class Curso {
         $resultados = array();
         $i=0;
         while(($registro = $this -> conexion -> extraer()) != null){
-            $resultados[$i] = new Curso($registro[0], $registro[1], $registro[2], $registro[3], $registro[5], $registro[5], $registro[6]);
+            $resultados[$i] = new Curso($registro[0], $registro[1], $registro[2], $registro[3], $registro[4], $registro[5], $registro[6]);
             $i++;
         }
         $this -> conexion -> cerrar();

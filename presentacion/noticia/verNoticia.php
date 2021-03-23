@@ -27,7 +27,6 @@ fetch(req)
     .then(function(response) { 
     	response.json().then(data => { 
     		console.log(data.articles); 
-  		   
     		 var codigo =''; 
     		for(var i=0; i<data.articles.length; i++){ 
     			  codigo += '<div class="column  is-narrow"><div class="animacion"><div class="card" style="width: 400px"><a href="'+data.articles[i].url+'" style="color:hsl(0, 0%, 21%)"><div class="card-image"><figure class="image is-4by3"><img src="'+data.articles[i].urlToImage+'" alt="Placeholder image"></figure></div><div class="card-content"><div class="media"><div class="media-content"><p class="title is-4">'+data.articles[i].title+'</p></div></div><div class="content">'+limitar_cadena(data.articles[i].content,1)+'<br><time datetime="2016-1-1">'+limitar_cadena(data.articles[i].publishedAt,2)+'</time></div></div></a></div></div></div>'; 
