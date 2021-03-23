@@ -73,12 +73,12 @@ include 'presentacion/home/menu.php';
 					<form action=<?php echo "index.php?pid=" . base64_encode("presentacion/administrador/crearPregunta.php"). (($tipo==1)? "&crear=true&idEncuesta=". $encuesta -> getId()."" : "&modificar=true&idPregunta=".$id) ?> method="post">
 						<?php if($errorPregunta==1){
 						    echo utf8_encode('<div class="notification is-success">
-                               La pregunta ha sido creda con exito
+                               La pregunta <strong>'. $preguntaE -> getNombre() .'</strong>  ha sido creda con exito
                                 </div>');
 						}?>
 						<?php if($errorPregunta==3){
 						    echo utf8_encode('<div class="notification is-success">
-                               La pregunta ha sido modificada con exito
+                               La pregunta <strong>'. $preguntaE -> getNombre() .'</strong>  ha sido modificada con exito
                                 </div>');
 						}?>
 						<?php if($errorPregunta==4){

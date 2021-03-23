@@ -43,7 +43,8 @@ class IndicadorDAO {
     function existeIndicador(){
         return "select idIndicador
                 from indicador
-                where nombre = '". $this -> nombre ."'";
+                where nombre = '". $this -> nombre ."' 
+                AND categoria.idCategoria = ". $this ->Categoria_idCategoria;
     }
     
     function eliminar(){
