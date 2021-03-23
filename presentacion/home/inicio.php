@@ -5,6 +5,10 @@
     $categorias2 = $categoria2 -> consultarTodos();
     $noticia = new Noticia();
     $noticias = $noticia ->consultarTodos();
+    $herramienta = new Herramienta();
+    $herramientas = $herramienta -> consultarTodos();
+    $curso = new Curso();
+    $cursos = $curso -> consultarTodos();
     include 'presentacion/home/menu.php';
 ?>
 <!--seccion inicial de la descripcion del portal -->
@@ -104,6 +108,283 @@
  
 </section>
 
+<?php
+if($noticias!= null && count($noticias)>=3){ ?>
+<div class="column" style="text-align: center; margin-left: 3%; margin-right: 3%">
+<h1 class="title">Noticias UDFJC</h1>
+	<hr style="height: 3px; background-color: #7317DA; margin-left: 42%; margin-right: 42%"></hr>
+</div>
+<section class="hero is-small has-carousel" style="background-color: #7317DA;">
+			<div id="carousel-demo" class="carousel">
+				<?php $i =1;
+     foreach ($noticias as $n) { ?>
+        <div class="animacion is-clickable" style="height: 250px; margin-right:25px; margin-left:25px; margin-bottom:20px">
+        <div class="card" id="ver<?php echo $n ->getId()?>" style="height: 250px; text-align: justify; margin-top:20px; border: 1px solid">
+        <div class="card-content">
+        <div class="media">
+        <div class="media-content">
+        <p class="title is-4"><?php echo $n -> getNombre()?></p>
+        </div>
+        </div>
+        <div class="content"><?php echo $n -> limitar_cadena($n -> getDescripcion(), 400) ?><br>
+         </div></div></div></div>
+	   
+<?php  $i++;
+     } ?>
+			</div>
+		</section>
+<?php }?>
+
+	<script>
+			bulmaCarousel.attach('#carousel-demo', {
+				slidesToScroll: 1,
+				  slidesToShow: 2,
+				  pagination:false,
+				  infinite: true,
+				  breakpoints:
+			      [{
+				      changePoint:480,
+				      slidesToScroll: 1,
+					  slidesToShow: 1,
+			      }, {
+				      changePoint:640,
+				      slidesToScroll: 2,
+					  slidesToShow: 2,
+			      },{
+				      changePoint:768,
+				      slidesToScroll: 3,
+					  slidesToShow: 3,
+			      },]
+			});
+		</script>
+<div class="modal" id="myModalNoticia">
+  <div class="modal-background" id="atras1"></div>
+  <div class="modal-card">
+    <header class="modal-card-head" style="background-color:#7317DA">
+      <p class="modal-card-title has-text-white">Detalles De la Noticia o Evento</p>
+      <button id="borrar1" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body" >
+    <div id="modalContent1">
+    
+    </div>
+
+    </section>
+  </div>
+</div>
+
+<!-- Control Modal -->
+<script type="text/javascript"> 
+$(document).ready(function(){
+	 <?php foreach ($noticias as $n) { ?>
+		$("#ver<?php echo $n -> getId(); ?>").click(function(e){
+			e.preventDefault();
+			<?php  echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/noticia/modalNoticia.php") . "&idNoticia=" . $n -> getId() . "\";\n"; ?>
+			$("#modalContent1").load(ruta);
+			$("#myModalNoticia").addClass("is-active");
+			
+		});
+		<?php } ?>
+
+		$("#borrar1").click(function(e){
+			e.preventDefault();
+			$("#myModalNoticia").removeClass("is-active");
+			
+		});
+		$('body').on('click', '#atras1', function(){
+			$("#myModalNoticia").removeClass("is-active");
+		  })
+});
+</script>	
+
+<?php
+if($herramientas!= null && count($herramientas)>=3){ ?>
+<div class="column" style="text-align: center; margin-left: 3%; margin-right: 3%; margin-top: 20px">
+<h1 class="title">Herramientas TIC</h1>
+	<hr style="height: 3px; background-color: #7317DA; margin-left: 42%; margin-right: 42%"></hr>
+</div>
+<section class="hero is-small has-carousel"  style="background-color:#7317DA">
+			<div id="carousel-demo1" class="carousel">
+				<?php $i =1;
+				foreach ($herramientas as $h) { ?>
+        <div class="animacion is-clickable" style="height: 250px; margin-right:25px; margin-left:25px; margin-bottom:20px">
+       <div class="box" id="ver1<?php echo $h ->getId()?>" style="height: 250px; text-align: justify; margin-top:20px">
+  <article class="media">
+    <div class="media-left" style="margin-top: 10%">
+      <figure class="image is-128x128">
+        <img src="<?php echo $h -> getLogo()?>" alt="Placeholder image">
+      </figure>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong class="title is-4"> <?php echo $h -> getNombre()?> </strong>
+          <br>
+          <br>
+         <?php echo $h -> limitar_cadena($h -> getDescripcion(), 350) ?>
+        </p>
+      </div>
+    </div>
+  </article>
+</div>
+ </div>
+	   
+<?php  $i++;
+     } ?>
+			</div>
+		</section>
+<?php }?>
+
+	<script>
+			bulmaCarousel.attach('#carousel-demo1', {
+				slidesToScroll: 1,
+				  slidesToShow: 2,
+				  pagination:false,
+				  infinite: true,
+				  breakpoints:
+			      [{
+				      changePoint:480,
+				      slidesToScroll: 1,
+					  slidesToShow: 1,
+			      }, {
+				      changePoint:640,
+				      slidesToScroll: 2,
+					  slidesToShow: 2,
+			      },{
+				      changePoint:768,
+				      slidesToScroll: 3,
+					  slidesToShow: 3,
+			      },]
+			});
+		</script>
+<div class="modal" id="myModalHerramienta">
+  <div class="modal-background" id="atras2"></div>
+  <div class="modal-card">
+    <header class="modal-card-head" style="background-color:#7317DA">
+      <p class="modal-card-title has-text-white">Detalles De la Herramienta</p>
+      <button id="borrar2" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body" >
+    <div id="modalContent2">
+    
+    </div>
+
+    </section>
+  </div>
+</div>
+
+<!-- Control Modal -->
+<script type="text/javascript"> 
+$(document).ready(function(){
+	 <?php foreach ($herramientas as $h) { ?>
+		$("#ver1<?php echo $h -> getId(); ?>").click(function(e){
+			e.preventDefault();
+			<?php  echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/herramienta/modalHerramienta.php") . "&idHerramienta=" . $h -> getId() . "\";\n"; ?>
+			$("#modalContent2").load(ruta);
+			$("#myModalHerramienta").addClass("is-active");
+			
+		});
+		<?php } ?>
+
+		$("#borrar2").click(function(e){
+			e.preventDefault();
+			$("#myModalHerramienta").removeClass("is-active");
+			
+		});
+		$('body').on('click', '#atras2', function(){
+			$("#myModalHerramienta").removeClass("is-active");
+		  })
+});
+</script>	
+<?php
+if($cursos!= null && count($cursos)>=3){ ?>
+<div class="column" style="text-align: center; margin-left: 3%; margin-right: 3%;  margin-top: 20px">
+<h1 class="title">Cursos</h1>
+	<hr style="height: 3px; background-color: #7317DA; margin-left: 42%; margin-right: 42%"></hr>
+</div>
+<section class="hero is-small has-carousel"  style="background-color:#7317DA">
+			<div id="carousel-demo2" class="carousel">
+				<?php $i =1;
+				foreach ($cursos as $c) { ?>
+        <div class="animacion is-clickable" style="height: 250px; margin-right:25px; margin-left:25px; margin-bottom:20px">
+        <div class="card" id="ver2<?php echo $c ->getId()?>" style="height: 250px; text-align: justify; margin-top:20px">
+        <div class="card-content">
+        <div class="media">
+        <div class="media-content">
+        <p class="title is-4"><?php echo $c -> getNombre()?></p>
+        </div>
+        </div>
+        <div class="content"><?php echo $c -> limitar_cadena($c -> getDescripcion(), 400) ?><br>
+         </div></div></div></div>
+	   
+<?php  $i++;
+     } ?>
+			</div>
+		</section>
+<?php }?>
+
+	<script>
+			bulmaCarousel.attach('#carousel-demo2', {
+				slidesToScroll: 1,
+				  slidesToShow: 2,
+				  pagination:false,
+				  infinite: true,
+				  breakpoints:
+			      [{
+				      changePoint:480,
+				      slidesToScroll: 1,
+					  slidesToShow: 1,
+			      }, {
+				      changePoint:640,
+				      slidesToScroll: 2,
+					  slidesToShow: 2,
+			      },{
+				      changePoint:768,
+				      slidesToScroll: 3,
+					  slidesToShow: 3,
+			      },]
+			});
+		</script>
+<div class="modal" id="myModalCurso">
+  <div class="modal-background" id="atras2"></div>
+  <div class="modal-card">
+    <header class="modal-card-head" style="background-color:#7317DA">
+      <p class="modal-card-title has-text-white">Detalles Del Curso</p>
+      <button id="borrar3" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body" >
+    <div id="modalContent3">
+    
+    </div>
+
+    </section>
+  </div>
+</div>
+
+<!-- Control Modal -->
+<script type="text/javascript"> 
+$(document).ready(function(){
+	 <?php foreach ($cursos as $c) { ?>
+		$("#ver2<?php echo $c -> getId(); ?>").click(function(e){
+			e.preventDefault();
+			<?php  echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/curso/modalCurso.php") . "&idCurso=" . $c -> getId() . "\";\n"; ?>
+			$("#modalContent3").load(ruta);
+			$("#myModalCurso").addClass("is-active");
+			
+		});
+		<?php } ?>
+
+		$("#borrar3").click(function(e){
+			e.preventDefault();
+			$("#myModalCurso").removeClass("is-active");
+			
+		});
+		$('body').on('click', '#atras2', function(){
+			$("#myModalCurso").removeClass("is-active");
+		  })
+});
+</script>	
+
 <!-- Seccion de los autores -->
 <section class="section is-small"
 	style="text-align: center; margin-left: 3%; margin-right: 3%">
@@ -190,89 +471,5 @@
 		</div>
 	</div>
 </section>
-<?php
-if($noticias!= null && count($noticias)>=2){ ?>
-    <section class="section">
-    <div class="container">
-				<!-- Start Carousel -->
-	<div id="carousel-demo1" class="carousel">
-   <?php $i =1;
-     foreach ($noticias as $n) { ?>
-        <div class="card" style="width: 550px; margin-top:50px">
-        <a id="ver<?php $n ->getId()?>" style="color:hsl(0, 0%, 21%)">
-        <div class="card-content">
-        <div class="media">
-        <div class="media-content">
-        <p class="title is-4"><?php echo $n -> getNombre()?></p>
-        </div>
-        </div>
-        <div class="content"><?php echo $n -> limitar_cadena($n -> getDescripcion(), 100) ?><br>
-         </div></div></a></div>
-	   
-<?php  $i++;
-     } ?>
-   </div>
-   </div>
-   </section>
-<?php } ?>
-<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
-		<script>
-		bulmaCarousel.attach('#carousel-demo1', {
-			slidesToScroll: 1,
-			  slidesToShow: 2,
-			  infinite: true,
-			  breakpoints:
-		      [{
-			      changePoint:480,
-			      slidesToScroll: 1,
-				  slidesToShow: 1,
-		      }, {
-			      changePoint:640,
-			      slidesToScroll: 2,
-				  slidesToShow: 2,
-		      },{
-			      changePoint:768,
-			      slidesToScroll: 3,
-				  slidesToShow: 3,
-		      },]
-		});
-		</script>
-<div class="modal" id="myModalNoticia">
-  <div class="modal-background" id="atras1"></div>
-  <div class="modal-card">
-    <header class="modal-card-head" style="background-color:#7317DA">
-      <p class="modal-card-title has-text-white">Detalles De la Noticia o Evento</p>
-      <button id="borrar1" class="delete" aria-label="close"></button>
-    </header>
-    <section class="modal-card-body" >
-    <div id="modalContent1">
-    
-    </div>
 
-    </section>
-  </div>
-</div>
 
-<!-- Control Modal -->
-<script type="text/javascript"> 
-$(document).ready(function(){
-	 <?php foreach ($noticias as $n) { ?>
-		$("#ver<?php echo $n -> getId(); ?>").click(function(e){
-			e.preventDefault();
-			<?php  echo "var ruta = \"indexAjax.php?pid=" . base64_encode("presentacion/noticia/modalNoticia.php") . "&idNoticia=" . $n -> getId() . "\";\n"; ?>
-			$("#modalContent1").load(ruta);
-			$("#myModalNoticia").addClass("is-active");
-			
-		});
-		<?php } ?>
-
-		$("#borrar1").click(function(e){
-			e.preventDefault();
-			$("#myModalNoticia").removeClass("is-active");
-			
-		});
-		$('body').on('click', '#atras1', function(){
-			$("#myModalNoticia").removeClass("is-active");
-		  })
-});
-</script>	

@@ -30,6 +30,7 @@ require 'logica/Curso.php';
         	  $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Observatorio TIC UDFJCT</title>
  <style type="text/css" media="all">
@@ -40,12 +41,12 @@ require 'logica/Curso.php';
     * {
   margin: 0;
 }
-  .container{
-  overflow: hidden
-  }
-  .slider-container{
-  border:none
-  }
+   .slider-navigation-next{
+   border: 1px solid
+   }
+   .slider-navigation-previous{
+   border: 1px solid
+   }
     </style>
    
 
@@ -80,7 +81,7 @@ require 'logica/Curso.php';
      <a href="mailto:saimbacuang@correo.udistrital.edu.co?Subject=Contacto%20observatorio%20TIC">saimbacuang@correo.udistrital.edu.co</a>
     
     </p>
-   <p> <?php echo utf8_encode("Copyright ï¿½ Todos los derechos reservados")?></p>
+   <p> <?php echo utf8_encode("Copyright © Todos los derechos reservados")?></p>
   </div>
 </footer>
 </body>

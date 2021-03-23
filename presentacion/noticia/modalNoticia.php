@@ -15,11 +15,16 @@ $noticia -> consultar();
                 <th width="20%"><?php echo utf8_encode("Descripción")?></th>
                 <td><?php echo $noticia -> getDescripcion(); ?></td>
             </tr>
+             <tr>
+                <th width="20%">Tipo</th>
+                <td><?php echo ($noticia ->getFechaCierre()=='0000-00-00')? 'Noticia':'Evento' ?></td>
+            </tr>
+            
             <tr>
                 <th width="20%">Fecha de Apertura</th>
                 <td><?php echo $noticia -> getFechaApertura(); ?></td>
             </tr>
-            <?php if($noticia -> getFechaCierre()!=null){?>
+            <?php if($noticia -> getFechaCierre()!='0000-00-00'){?>
             <tr>
                 <th width="20%"> Fecha de Cierre</th>
                 <td><?php echo $noticia -> getFechaCierre(); ?></td>
